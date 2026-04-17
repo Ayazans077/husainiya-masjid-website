@@ -1488,13 +1488,26 @@ function addMinutes(time24, mins) {
   return to12h(`${String(nh).padStart(2,'0')}:${String(nm).padStart(2,'0')}`);
 }
 
-// Parse "HH:MM" into today's Date object (handles " (IST)" suffix from API)
+// IST = UTC+5:30
+const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+
+// Get the current date/time expressed in IST
+function nowIST() {
+  return new Date(Date.now() + IST_OFFSET_MS);
+}
+
+// Parse "HH:MM" prayer time into a UTC Date object representing that time TODAY in IST.
+// Works correctly for visitors anywhere in the world.
 function toDateObj(time24) {
   const clean = time24.replace(/\s*\(.*\)/, '').trim();
   const [h, m] = clean.split(':').map(Number);
-  const d = new Date();
-  d.setHours(h, m, 0, 0);
-  return d;
+  const today  = nowIST(); // today's date in IST
+  // Build the prayer time as UTC equivalent of HH:MM IST on today's IST date
+  const istMs  = Date.UTC(
+    today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(),
+    h, m, 0, 0
+  );
+  return new Date(istMs - IST_OFFSET_MS); // convert IST→UTC
 }
 
 // Format countdown duration from now to a future Date
@@ -1511,11 +1524,11 @@ function formatCountdown(target) {
 }
 
 function updateCountdown(timings) {
-  const now = new Date();
+  const now = new Date(); // UTC — toDateObj() also returns UTC, so comparison is correct
   const cdBar = document.getElementById('pt-countdown-bar');
   if (!cdBar) return;
 
-  // Build array of {name, time} for active prayers today
+  // Build today's active prayer schedule
   const schedule = ACTIVE_PRAYERS.map(k => ({
     name: k, dateObj: toDateObj(timings[k])
   }));
@@ -1532,7 +1545,7 @@ function updateCountdown(timings) {
     }
   }
 
-  // Highlight current row
+  // ── Highlight current row ──────────────────────────────
   document.querySelectorAll('.prayer-table tbody tr').forEach(tr => {
     tr.classList.remove('current-prayer');
     const badge = tr.querySelector('.current-badge');
@@ -1552,8 +1565,9 @@ function updateCountdown(timings) {
     }
   }
 
-  // Update countdown bar
+  // ── Countdown bar ──────────────────────────────────────
   if (nextPrayer) {
+    // Still prayers remaining today
     const timeLeft = formatCountdown(nextPrayer.dateObj);
     if (timeLeft) {
       cdBar.innerHTML = `
@@ -1566,27 +1580,48 @@ function updateCountdown(timings) {
       cdBar.innerHTML = `<span class="cd-next">🕌 Time for ${nextPrayer.name}!</span>`;
     }
   } else {
-    cdBar.innerHTML = `<span class="cd-label">🌙 Isha prayer — may Allah accept</span>`;
+    // ── After Isha: count down to tomorrow's Fajr in IST ─
+    const fajrClean  = (timings['Fajr'] || '').replace(/\s*\(.*\)/, '').trim();
+    const [fh, fm]   = fajrClean.split(':').map(Number);
+    const todayIST   = nowIST();
+    const tomorrowMs = Date.UTC(
+      todayIST.getUTCFullYear(), todayIST.getUTCMonth(), todayIST.getUTCDate() + 1,
+      fh, fm, 0, 0
+    );
+    const tomorrow = new Date(tomorrowMs - IST_OFFSET_MS);
+
+    const timeLeft = formatCountdown(tomorrow);
+    if (timeLeft) {
+      cdBar.innerHTML = `
+        <span class="cd-label">🌙 Next:</span>
+        <span class="cd-next">Fajr</span>
+        <span class="cd-label">(tomorrow) in</span>
+        <span class="cd-time">⏱ ${timeLeft}</span>
+      `;
+    } else {
+      cdBar.innerHTML = `<span class="cd-next">🌅 Fajr time — Allahu Akbar!</span>`;
+    }
   }
 }
 
-// ── Monthly fallback times for Azamgarh/Lalmau, UP, India ─
-// Pre-calculated using Muslim World League method (lat ~26.07°N, lon ~83.18°E)
-// These display instantly when the API is unavailable (local file / no internet)
+// ── Monthly fallback times for Mehnajpur / Azamgarh district, UP, India ──
+// Location: lat 26.07°N, lon 83.18°E (Azamgarh, Uttar Pradesh)
+// Method: Karachi / University of Islamic Sciences (standard for UP/India)
+// These display instantly — the API silently upgrades them when online
 const FALLBACK_TIMES = {
   //     Fajr    Sunrise  Dhuhr   Asr     Maghrib  Isha
-  1:  { Fajr:'05:46', Sunrise:'07:01', Dhuhr:'12:19', Asr:'15:38', Maghrib:'17:37', Isha:'18:55' },
-  2:  { Fajr:'05:26', Sunrise:'06:43', Dhuhr:'12:21', Asr:'15:57', Maghrib:'17:58', Isha:'19:14' },
-  3:  { Fajr:'04:57', Sunrise:'06:14', Dhuhr:'12:17', Asr:'16:09', Maghrib:'18:19', Isha:'19:34' },
-  4:  { Fajr:'04:22', Sunrise:'05:43', Dhuhr:'12:09', Asr:'16:14', Maghrib:'18:35', Isha:'19:51' },
-  5:  { Fajr:'03:55', Sunrise:'05:19', Dhuhr:'12:04', Asr:'16:17', Maghrib:'18:49', Isha:'20:10' },
-  6:  { Fajr:'03:46', Sunrise:'05:15', Dhuhr:'12:05', Asr:'16:15', Maghrib:'18:56', Isha:'20:20' },
-  7:  { Fajr:'03:57', Sunrise:'05:24', Dhuhr:'12:10', Asr:'16:10', Maghrib:'18:55', Isha:'20:16' },
-  8:  { Fajr:'04:21', Sunrise:'05:46', Dhuhr:'12:09', Asr:'15:58', Maghrib:'18:33', Isha:'19:55' },
-  9:  { Fajr:'04:47', Sunrise:'06:07', Dhuhr:'12:00', Asr:'15:41', Maghrib:'17:53', Isha:'19:11' },
-  10: { Fajr:'05:11', Sunrise:'06:28', Dhuhr:'11:51', Asr:'15:19', Maghrib:'17:14', Isha:'18:33' },
-  11: { Fajr:'05:36', Sunrise:'06:53', Dhuhr:'11:50', Asr:'15:05', Maghrib:'16:47', Isha:'18:08' },
-  12: { Fajr:'05:52', Sunrise:'07:08', Dhuhr:'12:04', Asr:'15:05', Maghrib:'16:59', Isha:'18:21' },
+  1:  { Fajr:'06:05', Sunrise:'07:20', Dhuhr:'12:25', Asr:'15:46', Maghrib:'17:29', Isha:'18:47' },
+  2:  { Fajr:'05:44', Sunrise:'06:59', Dhuhr:'12:24', Asr:'16:05', Maghrib:'17:49', Isha:'19:05' },
+  3:  { Fajr:'05:10', Sunrise:'06:27', Dhuhr:'12:17', Asr:'16:13', Maghrib:'18:06', Isha:'19:22' },
+  4:  { Fajr:'04:48', Sunrise:'05:56', Dhuhr:'12:06', Asr:'16:12', Maghrib:'18:17', Isha:'19:32' },
+  5:  { Fajr:'04:09', Sunrise:'05:29', Dhuhr:'12:00', Asr:'16:11', Maghrib:'18:31', Isha:'19:48' },
+  6:  { Fajr:'03:55', Sunrise:'05:18', Dhuhr:'12:01', Asr:'16:08', Maghrib:'18:43', Isha:'19:59' },
+  7:  { Fajr:'04:03', Sunrise:'05:24', Dhuhr:'12:06', Asr:'16:04', Maghrib:'18:47', Isha:'20:02' },
+  8:  { Fajr:'04:28', Sunrise:'05:46', Dhuhr:'12:05', Asr:'15:53', Maghrib:'18:24', Isha:'19:41' },
+  9:  { Fajr:'04:56', Sunrise:'06:08', Dhuhr:'11:57', Asr:'15:37', Maghrib:'17:45', Isha:'19:01' },
+  10: { Fajr:'05:21', Sunrise:'06:33', Dhuhr:'11:48', Asr:'15:15', Maghrib:'17:02', Isha:'18:20' },
+  11: { Fajr:'05:47', Sunrise:'07:01', Dhuhr:'11:49', Asr:'15:04', Maghrib:'16:36', Isha:'17:56' },
+  12: { Fajr:'06:07', Sunrise:'07:21', Dhuhr:'12:07', Asr:'15:09', Maghrib:'16:52', Isha:'18:13' },
 };
 
 // Hijri months array (for offline date display)
@@ -1704,9 +1739,9 @@ async function loadPrayerTimes() {
     const controller = new AbortController();
     const timeout    = setTimeout(() => controller.abort(), 8000); // 8s timeout
 
-    // Primary: coordinates-based (more reliable than city name)
-    // Mehnajpur area: lat=26.25, lon=82.55 | Method 1 = Karachi (standard in UP)
-    const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=26.25&longitude=82.55&method=1`;
+    // Azamgarh district, UP, India: lat=26.07, lon=83.18
+    // Method 1 = University of Islamic Sciences, Karachi (standard for UP/India)
+    const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=26.07&longitude=83.18&method=1`;
     const resp = await fetch(url, { signal: controller.signal });
     clearTimeout(timeout);
 
