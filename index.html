@@ -1800,7 +1800,14 @@ backTop.addEventListener('click', () => {
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
+// Always start at the very top when the page loads
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
 document.addEventListener('DOMContentLoaded', () => {
+  window.scrollTo(0, 0);
   setLang(currentLang);
   loadPrayerTimes();
 });
