@@ -58,6 +58,16 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--gold-light); }
+    .nav-donate-btn {
+      background: var(--gold) !important;
+      color: var(--green-dark) !important;
+      padding: 0.3rem 0.9rem !important;
+      border-radius: 50px !important;
+      font-weight: 700 !important;
+      font-size: 0.8rem !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-donate-btn:hover { background: var(--gold-light) !important; transform: scale(1.05); }
 
     /* Language Switcher */
     .lang-switcher {
@@ -132,7 +142,7 @@
       background-image: url('masjid.jpg');
       background-size: cover;
       background-position: center;
-      opacity: 0.12;
+      opacity: 0.38;
       pointer-events: none;
     }
     .hero-bismillah {
@@ -226,22 +236,184 @@
 
     /* ── PRAYER TIMES ── */
     #prayer { background: var(--cream); }
-    .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.2rem; }
-    .prayer-card {
+
+    /* ── LIVE PRAYER TABLE CARD ── */
+    .prayer-main-card {
+      max-width: 680px;
+      margin: 0 auto;
       background: #fff;
-      border-radius: 16px;
-      text-align: center;
-      padding: 1.8rem 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      border-top: 4px solid var(--green-mid);
-      transition: transform 0.25s, box-shadow 0.25s;
+      border-radius: 22px;
+      box-shadow: 0 8px 40px rgba(26,71,49,0.13);
+      overflow: hidden;
     }
-    .prayer-card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(0,0,0,0.13); }
-    .prayer-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
-    .prayer-card .name-en { font-weight: 700; color: var(--green-dark); font-size: 1rem; }
-    .prayer-card .name-ur { font-family: 'Amiri', serif; color: var(--gold); font-size: 1.1rem; direction: rtl; }
-    .prayer-card .time { margin-top: 0.6rem; font-size: 1.3rem; font-weight: 700; color: var(--green-mid); }
-    .prayer-note { text-align: center; margin-top: 1.5rem; color: #777; font-size: 0.85rem; }
+
+    /* Date header */
+    .prayer-date-bar {
+      background: var(--green-dark);
+      color: #fff;
+      text-align: center;
+      padding: 1.1rem 1.5rem;
+    }
+    .prayer-date-hijri {
+      font-family: 'Amiri', serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      direction: rtl;
+      margin-bottom: 0.2rem;
+    }
+    .prayer-date-gregorian {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    /* Countdown banner */
+    .prayer-countdown-bar {
+      background: linear-gradient(90deg, var(--green-mid), var(--green-light));
+      color: #fff;
+      text-align: center;
+      padding: 0.65rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .prayer-countdown-bar .cd-label { opacity: 0.9; }
+    .prayer-countdown-bar .cd-time {
+      font-size: 1rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.18);
+      padding: 0.1rem 0.6rem;
+      border-radius: 6px;
+    }
+    .prayer-countdown-bar .cd-next { color: var(--gold-light); font-weight: 700; }
+
+    /* Table */
+    .prayer-table-wrap { padding: 0 0 0.5rem; }
+    .prayer-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .prayer-table thead tr {
+      background: #f4f9f5;
+      border-bottom: 2px solid #e0efe6;
+    }
+    .prayer-table thead th {
+      padding: 0.75rem 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--green-mid);
+    }
+    .prayer-table thead th:first-child { text-align: left; }
+    .prayer-table thead th:not(:first-child) { text-align: center; }
+    .prayer-table tbody tr {
+      border-bottom: 1px solid #f0f4f1;
+      transition: background 0.18s;
+    }
+    .prayer-table tbody tr:last-child { border-bottom: none; }
+    .prayer-table tbody tr:hover { background: #f9fcfa; }
+    .prayer-table tbody tr.current-prayer {
+      background: linear-gradient(90deg, #e8f5ed, #f0faf3);
+      border-left: 4px solid var(--green-mid);
+    }
+    .prayer-table tbody tr.current-prayer td.pt-name .pt-name-en { color: var(--green-dark); }
+    .prayer-table td {
+      padding: 1rem 1.2rem;
+      vertical-align: middle;
+    }
+    .pt-name { display: flex; align-items: center; gap: 0.75rem; }
+    .pt-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #f0f7f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .current-prayer .pt-icon { background: var(--green-light); }
+    .pt-name-en { font-weight: 700; color: var(--text-dark); font-size: 0.95rem; display: block; }
+    .pt-name-ur { font-family: 'Amiri', serif; color: #999; font-size: 0.88rem; direction: rtl; display: block; }
+    .pt-time {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green-dark);
+    }
+    .pt-iqama {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-mid);
+    }
+    .pt-iqama .iqama-dash { color: #ccc; font-weight: 400; }
+    .current-badge {
+      display: inline-block;
+      background: var(--green-mid);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    /* Jumuah footer row */
+    .prayer-jumuah-row {
+      background: linear-gradient(90deg, #fdf8ec, #fffbf0);
+      border-top: 2px solid #f0e4b0 !important;
+    }
+    .prayer-jumuah-row td { padding: 0.9rem 1.2rem; }
+    .pt-jumuah-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+    .pt-jumuah-label .pt-icon { background: #fef3c7; }
+    .pt-jumuah-label small { display: block; color: #b8860b; font-size: 0.75rem; font-weight: 500; font-style: italic; }
+
+    /* Loading state */
+    .prayer-loading {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--green-mid);
+    }
+    .prayer-loading .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #e0efe6;
+      border-top-color: var(--green-mid);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .prayer-error {
+      text-align: center;
+      padding: 2rem;
+      color: #c62828;
+      font-size: 0.9rem;
+    }
+    .prayer-note { text-align: center; margin-top: 1.2rem; color: #999; font-size: 0.78rem; }
+
+    @media (max-width: 480px) {
+      .prayer-table td, .prayer-table th { padding: 0.75rem 0.7rem; }
+      .pt-icon { width: 32px; height: 32px; font-size: 0.9rem; border-radius: 8px; }
+      .pt-name-en { font-size: 0.88rem; }
+      .pt-time, .pt-iqama { font-size: 0.88rem; }
+      .prayer-date-gregorian { font-size: 1rem; }
+    }
 
     /* ── ABOUT ── */
     #about { background: #fff; }
@@ -584,8 +756,8 @@
       <li><a href="#about" data-i18n="nav_about">About</a></li>
       <li><a href="#events" data-i18n="nav_events">Events</a></li>
       <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
-      <li><a href="#donation" data-i18n="nav_donate">Donate</a></li>
       <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      <li><a href="#donation" class="nav-donate-btn" data-i18n="nav_donate">Donate Now</a></li>
     </ul>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
@@ -622,45 +794,40 @@
       <div class="arabic" id="prayer-arabic">اوقاتِ نماز</div>
       <div class="divider-gold"></div>
     </div>
-    <div class="prayer-grid fade-in">
-      <div class="prayer-card">
-        <div class="icon">🌅</div>
-        <div class="name-en" data-i18n="fajr">Fajr</div>
-        <div class="name-ur">فجر</div>
-        <div class="time">5:15 AM</div>
+    <!-- Live Prayer Times Card -->
+    <div class="prayer-main-card fade-in" id="prayer-main-card">
+      <!-- Date bar -->
+      <div class="prayer-date-bar">
+        <div class="prayer-date-hijri" id="pt-hijri-date">Loading…</div>
+        <div class="prayer-date-gregorian" id="pt-greg-date">—</div>
       </div>
-      <div class="prayer-card">
-        <div class="icon">☀️</div>
-        <div class="name-en" data-i18n="dhuhr">Dhuhr</div>
-        <div class="name-ur">ظہر</div>
-        <div class="time">12:45 PM</div>
+      <!-- Countdown banner -->
+      <div class="prayer-countdown-bar" id="pt-countdown-bar">
+        <span class="cd-label">Loading prayer times…</span>
       </div>
-      <div class="prayer-card">
-        <div class="icon">🌤️</div>
-        <div class="name-en" data-i18n="asr">Asr</div>
-        <div class="name-ur">عصر</div>
-        <div class="time">4:15 PM</div>
+      <!-- Loading state -->
+      <div class="prayer-loading" id="pt-loading">
+        <div class="spinner"></div>
+        <p>Fetching prayer times for Mehnajpur…</p>
       </div>
-      <div class="prayer-card">
-        <div class="icon">🌇</div>
-        <div class="name-en" data-i18n="maghrib">Maghrib</div>
-        <div class="name-ur">مغرب</div>
-        <div class="time">6:50 PM</div>
-      </div>
-      <div class="prayer-card">
-        <div class="icon">🌙</div>
-        <div class="name-en" data-i18n="isha">Isha</div>
-        <div class="name-ur">عشاء</div>
-        <div class="time">8:15 PM</div>
-      </div>
-      <div class="prayer-card" style="border-top-color: var(--gold);">
-        <div class="icon">🕌</div>
-        <div class="name-en" data-i18n="jumua">Jumu'ah</div>
-        <div class="name-ur">جمعہ</div>
-        <div class="time">1:00 PM</div>
+      <!-- Error state: unused — fallback times always display instead -->
+      <!-- Table (hidden until loaded) -->
+      <div class="prayer-table-wrap" id="pt-table-wrap" style="display:none;">
+        <table class="prayer-table">
+          <thead>
+            <tr>
+              <th>Prayer</th>
+              <th>Begins</th>
+              <th>Iqama</th>
+            </tr>
+          </thead>
+          <tbody id="pt-tbody">
+            <!-- Filled by JavaScript -->
+          </tbody>
+        </table>
       </div>
     </div>
-    <p class="prayer-note" data-i18n="prayer_note">⚠️ Times are approximate and may vary. Please confirm with the masjid.</p>
+    <p class="prayer-note" data-i18n="prayer_note">⚠️ Iqama times are set by the masjid and may vary. Times auto-update daily.</p>
   </div>
 </section>
 
@@ -1272,6 +1439,302 @@ function copyUPI() {
 }
 
 // ═══════════════════════════════════════════════════════════
+//  PRAYER TIMES — Aladhan API
+// ═══════════════════════════════════════════════════════════
+
+// ── Editable Iqama offsets (minutes after adhan) ──────────
+// Change these values to match your masjid's schedule.
+const IQAMA_OFFSETS = {
+  Fajr:    20,   // 20 min after Fajr adhan
+  Dhuhr:   30,   // 30 min after Dhuhr adhan
+  Asr:     15,   // 15 min after Asr adhan
+  Maghrib:  5,   //  5 min after Maghrib adhan
+  Isha:    30,   // 30 min after Isha adhan
+};
+// Jumu'ah is a fixed time (edit as needed)
+const JUMUAH_IQAMA = '1:30 PM';
+
+// Prayer row config: [key in API timings, display name EN, Arabic, icon]
+const PRAYER_ROWS = [
+  { key: 'Fajr',    en: 'Fajr',    ur: 'فجر',  icon: '🌅', hasIqama: true  },
+  { key: 'Sunrise', en: 'Sunrise', ur: 'طلوع آفتاب', icon: '☀️', hasIqama: false },
+  { key: 'Dhuhr',   en: 'Dhuhr',   ur: 'ظہر',  icon: '🌤️', hasIqama: true  },
+  { key: 'Asr',     en: 'Asr',     ur: 'عصر',  icon: '🌇', hasIqama: true  },
+  { key: 'Maghrib', en: 'Maghrib', ur: 'مغرب', icon: '🌆', hasIqama: true  },
+  { key: 'Isha',    en: 'Isha',    ur: 'عشاء', icon: '🌙', hasIqama: true  },
+];
+
+// Prayers eligible for "current/next" detection (Sunrise excluded)
+const ACTIVE_PRAYERS = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+let prayerTimesCache = null;   // cache to avoid re-fetching on countdown ticks
+let countdownInterval = null;
+
+// Convert "HH:MM" (24h) to "H:MM AM/PM"
+function to12h(time24) {
+  if (!time24) return '—';
+  const [h, m] = time24.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const hour   = h % 12 || 12;
+  return `${hour}:${String(m).padStart(2,'0')} ${period}`;
+}
+
+// Add `minutes` to a "HH:MM" string → returns "H:MM AM/PM"
+function addMinutes(time24, mins) {
+  const [h, m] = time24.split(':').map(Number);
+  const total  = h * 60 + m + mins;
+  const nh     = Math.floor(total / 60) % 24;
+  const nm     = total % 60;
+  return to12h(`${String(nh).padStart(2,'0')}:${String(nm).padStart(2,'0')}`);
+}
+
+// Parse "HH:MM" into today's Date object (handles " (IST)" suffix from API)
+function toDateObj(time24) {
+  const clean = time24.replace(/\s*\(.*\)/, '').trim();
+  const [h, m] = clean.split(':').map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+// Format countdown duration from now to a future Date
+function formatCountdown(target) {
+  const diff = target - new Date();
+  if (diff <= 0) return null;
+  const totalSec = Math.floor(diff / 1000);
+  const hrs  = Math.floor(totalSec / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  const secs = totalSec % 60;
+  if (hrs > 0) return `${hrs}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
+  if (mins > 0) return `${mins}m ${String(secs).padStart(2,'0')}s`;
+  return `${secs}s`;
+}
+
+function updateCountdown(timings) {
+  const now = new Date();
+  const cdBar = document.getElementById('pt-countdown-bar');
+  if (!cdBar) return;
+
+  // Build array of {name, time} for active prayers today
+  const schedule = ACTIVE_PRAYERS.map(k => ({
+    name: k, dateObj: toDateObj(timings[k])
+  }));
+
+  // Find current and next prayer
+  let currentPrayer = null;
+  let nextPrayer    = null;
+
+  for (let i = 0; i < schedule.length; i++) {
+    if (now >= schedule[i].dateObj) {
+      currentPrayer = schedule[i];
+    } else if (!nextPrayer) {
+      nextPrayer = schedule[i];
+    }
+  }
+
+  // Highlight current row
+  document.querySelectorAll('.prayer-table tbody tr').forEach(tr => {
+    tr.classList.remove('current-prayer');
+    const badge = tr.querySelector('.current-badge');
+    if (badge) badge.remove();
+  });
+  if (currentPrayer) {
+    const row = document.getElementById(`pt-row-${currentPrayer.name}`);
+    if (row) {
+      row.classList.add('current-prayer');
+      const nameCell = row.querySelector('.pt-name-en');
+      if (nameCell && !nameCell.querySelector('.current-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'current-badge';
+        badge.textContent = 'NOW';
+        nameCell.appendChild(badge);
+      }
+    }
+  }
+
+  // Update countdown bar
+  if (nextPrayer) {
+    const timeLeft = formatCountdown(nextPrayer.dateObj);
+    if (timeLeft) {
+      cdBar.innerHTML = `
+        <span class="cd-label">Next:</span>
+        <span class="cd-next">${nextPrayer.name}</span>
+        <span class="cd-label">in</span>
+        <span class="cd-time">⏱ ${timeLeft}</span>
+      `;
+    } else {
+      cdBar.innerHTML = `<span class="cd-next">🕌 Time for ${nextPrayer.name}!</span>`;
+    }
+  } else {
+    cdBar.innerHTML = `<span class="cd-label">🌙 Isha prayer — may Allah accept</span>`;
+  }
+}
+
+// ── Monthly fallback times for Azamgarh/Lalmau, UP, India ─
+// Pre-calculated using Muslim World League method (lat ~26.07°N, lon ~83.18°E)
+// These display instantly when the API is unavailable (local file / no internet)
+const FALLBACK_TIMES = {
+  //     Fajr    Sunrise  Dhuhr   Asr     Maghrib  Isha
+  1:  { Fajr:'05:46', Sunrise:'07:01', Dhuhr:'12:19', Asr:'15:38', Maghrib:'17:37', Isha:'18:55' },
+  2:  { Fajr:'05:26', Sunrise:'06:43', Dhuhr:'12:21', Asr:'15:57', Maghrib:'17:58', Isha:'19:14' },
+  3:  { Fajr:'04:57', Sunrise:'06:14', Dhuhr:'12:17', Asr:'16:09', Maghrib:'18:19', Isha:'19:34' },
+  4:  { Fajr:'04:22', Sunrise:'05:43', Dhuhr:'12:09', Asr:'16:14', Maghrib:'18:35', Isha:'19:51' },
+  5:  { Fajr:'03:55', Sunrise:'05:19', Dhuhr:'12:04', Asr:'16:17', Maghrib:'18:49', Isha:'20:10' },
+  6:  { Fajr:'03:46', Sunrise:'05:15', Dhuhr:'12:05', Asr:'16:15', Maghrib:'18:56', Isha:'20:20' },
+  7:  { Fajr:'03:57', Sunrise:'05:24', Dhuhr:'12:10', Asr:'16:10', Maghrib:'18:55', Isha:'20:16' },
+  8:  { Fajr:'04:21', Sunrise:'05:46', Dhuhr:'12:09', Asr:'15:58', Maghrib:'18:33', Isha:'19:55' },
+  9:  { Fajr:'04:47', Sunrise:'06:07', Dhuhr:'12:00', Asr:'15:41', Maghrib:'17:53', Isha:'19:11' },
+  10: { Fajr:'05:11', Sunrise:'06:28', Dhuhr:'11:51', Asr:'15:19', Maghrib:'17:14', Isha:'18:33' },
+  11: { Fajr:'05:36', Sunrise:'06:53', Dhuhr:'11:50', Asr:'15:05', Maghrib:'16:47', Isha:'18:08' },
+  12: { Fajr:'05:52', Sunrise:'07:08', Dhuhr:'12:04', Asr:'15:05', Maghrib:'16:59', Isha:'18:21' },
+};
+
+// Hijri months array (for offline date display)
+const HIJRI_MONTHS = [
+  'Muharram','Safar','Rabi al-Awwal','Rabi al-Thani',
+  'Jumada al-Awwal','Jumada al-Thani','Rajab','Sha\'ban',
+  'Ramadan','Shawwal','Dhu al-Qi\'dah','Dhu al-Hijjah'
+];
+
+// Simple Gregorian→Hijri approximation (accurate within ±1 day)
+function gregorianToHijri(date) {
+  const jd = Math.floor((date.getTime() / 86400000) + 2440587.5);
+  let l = jd - 1948440 + 10632;
+  const n = Math.floor((l - 1) / 10631);
+  l = l - 10631 * n + 354;
+  const j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719))
+           + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+  l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50))
+        - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+  const month = Math.floor((24 * l) / 709);
+  const day   = l - Math.floor((709 * month) / 24);
+  const year  = 30 * n + j - 30;
+  return { day, month, year };
+}
+
+// ── Helper to render the prayer table from a timings object ─
+function renderPrayerTable(timings, source) {
+  const loadEl  = document.getElementById('pt-loading');
+  const tableEl = document.getElementById('pt-table-wrap');
+  const tbody   = document.getElementById('pt-tbody');
+
+  tbody.innerHTML = '';
+  PRAYER_ROWS.forEach(p => {
+    const rawTime = (timings[p.key] || '').replace(/\s*\(.*\)/, '').trim();
+    const begins  = to12h(rawTime);
+    let iqamaHtml = `<span class="iqama-dash">—</span>`;
+    if (p.hasIqama && IQAMA_OFFSETS[p.key] != null) {
+      iqamaHtml = addMinutes(rawTime, IQAMA_OFFSETS[p.key]);
+    }
+    const tr = document.createElement('tr');
+    tr.id = `pt-row-${p.key}`;
+    tr.innerHTML = `
+      <td>
+        <div class="pt-name">
+          <div class="pt-icon">${p.icon}</div>
+          <div>
+            <span class="pt-name-en">${p.en}</span>
+            <span class="pt-name-ur">${p.ur}</span>
+          </div>
+        </div>
+      </td>
+      <td class="pt-time">${begins}</td>
+      <td class="pt-iqama">${iqamaHtml}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Jumu'ah row
+  const jTr = document.createElement('tr');
+  jTr.className = 'prayer-jumuah-row';
+  jTr.innerHTML = `
+    <td colspan="3">
+      <div class="pt-jumuah-label">
+        <div class="pt-icon">🕌</div>
+        <div>
+          <span style="font-size:0.95rem;">Jumu'ah <span style="font-family:'Amiri',serif;color:var(--gold);font-size:1rem;">جمعہ</span></span>
+          <small>Friday Congregational Prayer — Khutbah + Salah</small>
+        </div>
+        <span style="margin-left:auto;font-size:1rem;font-weight:700;color:var(--green-dark);">${JUMUAH_IQAMA}</span>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(jTr);
+
+  // Source badge in note area
+  if (source === 'fallback') {
+    const noteEl = document.querySelector('.prayer-note');
+    if (noteEl) noteEl.innerHTML = '📡 <em>Showing pre-calculated times for Mehnajpur, UP. Times auto-refresh when online.</em>';
+  }
+
+  loadEl.style.display  = 'none';
+  tableEl.style.display = 'block';
+
+  updateCountdown(timings);
+  if (countdownInterval) clearInterval(countdownInterval);
+  countdownInterval = setInterval(() => updateCountdown(timings), 1000);
+}
+
+// ── Load dates into the header ────────────────────────────
+function setDateBar(hijriDay, hijriMonth, hijriYear, gregStr) {
+  document.getElementById('pt-hijri-date').textContent =
+    `${hijriDay} ${HIJRI_MONTHS[hijriMonth - 1] || ''} ${hijriYear} AH`;
+  document.getElementById('pt-greg-date').textContent = gregStr;
+}
+
+async function loadPrayerTimes() {
+  const today   = new Date();
+  const month   = today.getMonth() + 1; // 1–12
+  const dd      = String(today.getDate()).padStart(2,'0');
+  const mm      = String(month).padStart(2,'0');
+  const yyyy    = today.getFullYear();
+  const weekday = today.toLocaleDateString('en-IN', { weekday:'long' });
+  const gregStr = `${weekday}, ${today.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}`;
+
+  // Pre-fill date bar immediately (works offline)
+  const hijri = gregorianToHijri(today);
+  setDateBar(hijri.day, hijri.month, hijri.year, gregStr);
+
+  // Show fallback times immediately so there's never a blank screen
+  const fallback = FALLBACK_TIMES[month];
+  renderPrayerTable(fallback, 'fallback');
+
+  // Then try the live API and upgrade if it succeeds
+  try {
+    const controller = new AbortController();
+    const timeout    = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+    // Primary: coordinates-based (more reliable than city name)
+    // Mehnajpur area: lat=26.25, lon=82.55 | Method 1 = Karachi (standard in UP)
+    const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=26.25&longitude=82.55&method=1`;
+    const resp = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    if (data.code !== 200) throw new Error('API error');
+
+    const timings = data.data.timings;
+    const h       = data.data.date.hijri;
+    const g       = data.data.date.readable;
+
+    // Upgrade date bar with exact Hijri from API
+    setDateBar(h.day, h.month.number, h.year, g);
+
+    // Re-render table with live data
+    renderPrayerTable(timings, 'live');
+
+    // Update note
+    const noteEl = document.querySelector('.prayer-note');
+    if (noteEl) noteEl.innerHTML = '✅ <em>Live prayer times — Azamgarh, UP · Iqama times set by the masjid.</em>';
+
+  } catch (err) {
+    // Fallback already displayed — just log silently
+    console.info('Prayer API unavailable, using pre-calculated fallback:', err.message);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 //  SCROLL ANIMATIONS
 // ═══════════════════════════════════════════════════════════
 const animObserver = new IntersectionObserver((entries) => {
@@ -1304,6 +1767,7 @@ backTop.addEventListener('click', () => {
 // ═══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   setLang(currentLang);
+  loadPrayerTimes();
 });
 </script>
 
