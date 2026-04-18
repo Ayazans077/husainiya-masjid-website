@@ -817,6 +817,22 @@
       padding-top: 0.5rem;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
+    .qm-ayah-urdu {
+      font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+      direction: rtl; text-align: right;
+      color: #c8e6c9; font-size: 1rem; line-height: 2;
+      padding-top: 0.4rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .qm-ayah-hindi {
+      color: #a5d6a7; font-size: 0.85rem; line-height: 1.75;
+      padding-top: 0.4rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .qm-trans-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.5; margin-bottom: 0.15rem; display: block;
+    }
     .qm-loading-spinner {
       text-align: center;
       padding: 3rem;
@@ -2331,7 +2347,7 @@ const IQAMA_OFFSETS = {
   Isha:    30,   // 30 min after Isha adhan
 };
 // Jumu'ah is a fixed time (edit as needed)
-const JUMUAH_IQAMA = '1:30 PM';
+const JUMUAH_IQAMA = '1:00 PM';
 
 // Prayer row config: [key in API timings, display name EN, Arabic, icon]
 const PRAYER_ROWS = [
@@ -3178,32 +3194,43 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
   document.getElementById('qm-body').scrollTop = 0;
 
   try {
-    // Fetch Arabic + English translation in parallel
-    const [arResp, enResp] = await Promise.all([
+    // Fetch Arabic + English + Urdu + Hindi in parallel
+    const [arResp, enResp, urResp, hiResp] = await Promise.all([
       fetch(`https://api.alquran.cloud/v1/surah/${num}`),
-      fetch(`https://api.alquran.cloud/v1/surah/${num}/en.sahih`)
+      fetch(`https://api.alquran.cloud/v1/surah/${num}/en.sahih`),
+      fetch(`https://api.alquran.cloud/v1/surah/${num}/ur.ahmedali`),
+      fetch(`https://api.alquran.cloud/v1/surah/${num}/hi.hindi`)
     ]);
     const arData = await arResp.json();
     const enData = await enResp.json();
+    const urData = urResp.ok ? await urResp.json() : null;
+    const hiData = hiResp.ok ? await hiResp.json() : null;
+
     const arAyahs = arData.data.ayahs;
     const enAyahs = enData.data.ayahs;
+    const urAyahs = urData ? urData.data.ayahs : null;
+    const hiAyahs = hiData ? hiData.data.ayahs : null;
 
     // Build HTML
     let html = '';
 
-    // Bismillah (except Surah 9 Al-Tawbah which has no bismillah, and Surah 1 where it's the first ayah)
+    // Bismillah (except Surah 9)
     if (num !== 9) {
       html += `<div class="qm-reader-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
     }
 
     arAyahs.forEach((ayah, i) => {
-      const translation = enAyahs[i] ? enAyahs[i].text : '';
+      const en = enAyahs[i] ? enAyahs[i].text : '';
+      const ur = urAyahs && urAyahs[i] ? urAyahs[i].text : '';
+      const hi = hiAyahs && hiAyahs[i] ? hiAyahs[i].text : '';
       html += `
         <div class="qm-ayah-block">
           <div class="qm-ayah-arabic">
             ${ayah.text} <span class="qm-ayah-num">${ayah.numberInSurah}</span>
           </div>
-          <div class="qm-ayah-translation">${translation}</div>
+          ${en ? `<div class="qm-ayah-translation"><span class="qm-trans-label">English</span>${en}</div>` : ''}
+          ${ur ? `<div class="qm-ayah-urdu"><span class="qm-trans-label" style="text-align:right;">اردو</span>${ur}</div>` : ''}
+          ${hi ? `<div class="qm-ayah-hindi"><span class="qm-trans-label">हिन्दी</span>${hi}</div>` : ''}
         </div>
       `;
     });
