@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Husainiya Masjid Mehnajpur</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap');
 
     :root {
       --green-dark: #1a4731;
@@ -797,39 +797,39 @@
     }
     .qm-ayah-block:hover { background: rgba(201,168,76,0.06); border-radius: 6px; }
     .qm-ayah-arabic {
-      font-family: 'Amiri Quran', 'Amiri', serif;
-      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      font-family: 'Amiri Quran', 'Amiri', 'Scheherazade New', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
       color: #160f02;
       direction: rtl;
       text-align: justify;
       text-align-last: right;
-      line-height: 2.9;
+      line-height: 3.2;
       margin-bottom: 0;
     }
 
     /* ── Tajweed colours ── */
     /* Hamzat Wasl / Lam Shamsiyah — light grey (silent/assimilated) */
-    tajweed.ham_wasl, tajweed.laam_shamsiyah { color: #aaaaaa; }
+    tajweed.ham_wasl, tajweed.laam_shamsiyah { color: #999999; }
     /* Madd — blue shades (elongation rules) */
-    tajweed.madda_normal       { color: #6fa8ff; }
-    tajweed.madda_permissible  { color: #5b8fe8; }
-    tajweed.madda_obligatory   { color: #4070d0; }
-    tajweed.madda_necessary    { color: #2255c0; }
+    tajweed.madda_normal       { color: #2a6dd9; }
+    tajweed.madda_permissible  { color: #1f5bbf; }
+    tajweed.madda_obligatory   { color: #1648a0; }
+    tajweed.madda_necessary    { color: #0d3585; }
     /* Idgham with Ghunnah — green (merging with nasal) */
-    tajweed.idgham_ghunnah       { color: #4caf7d; }
-    tajweed.idgham_wo_ghunnah    { color: #81c784; }
-    tajweed.idgham_mutajanisayn  { color: #66bb6a; }
-    tajweed.idgham_mutaqaribayan { color: #a5d6a7; }
-    tajweed.idgham_shafawi       { color: #4db87a; }
+    tajweed.idgham_ghunnah       { color: #1e7a4a; }
+    tajweed.idgham_wo_ghunnah    { color: #2e8b57; }
+    tajweed.idgham_mutajanisayn  { color: #27794a; }
+    tajweed.idgham_mutaqaribayan { color: #388e5a; }
+    tajweed.idgham_shafawi       { color: #1d7a52; }
     /* Ikhfa — purple (concealment) */
-    tajweed.ikhfaa         { color: #ce93d8; }
-    tajweed.ikhfaa_shafawi { color: #ba68c8; }
+    tajweed.ikhfaa         { color: #8e24aa; }
+    tajweed.ikhfaa_shafawi { color: #7b1fa2; }
     /* Iqlab — orange (conversion) */
-    tajweed.iqlab { color: #ffb74d; }
+    tajweed.iqlab { color: #c07000; }
     /* Qalqalah — red (echoing sound) */
     tajweed.qalaqah { color: #ef5350; }
     /* Ghunnah — bright green (nasal prolongation) */
-    tajweed.ghunnah { color: #69f0ae; }
+    tajweed.ghunnah { color: #00875a; }
 
     /* Tajweed legend strip */
     .qm-tajweed-legend {
@@ -2388,14 +2388,21 @@ function copyUPI() {
 // Fixed iqama times (override offset — set to null to use offset instead)
 const FIXED_IQAMA = {
   Dhuhr: '1:30 PM',   // fixed time, not offset-based
+  Asr:   '4:30 PM',   // fixed time
+  Isha:  '8:30 PM',   // fixed time
+};
+
+// Fixed adhan/begins times (override API/fallback — set to null to use calculated time)
+const FIXED_BEGINS = {
+  Isha: '8:00 PM',    // fixed begins time
 };
 
 const IQAMA_OFFSETS = {
   Fajr:    20,   // 20 min after Fajr adhan
   Dhuhr:   30,   // (ignored — FIXED_IQAMA.Dhuhr used instead)
-  Asr:     15,   // 15 min after Asr adhan
+  Asr:     15,   // (ignored — FIXED_IQAMA.Asr used instead)
   Maghrib:  5,   //  5 min after Maghrib adhan
-  Isha:    30,   // 30 min after Isha adhan
+  Isha:    30,   // (ignored — FIXED_IQAMA.Isha used instead)
 };
 // Jumu'ah is a fixed time (edit as needed)
 const JUMUAH_IQAMA = '1:00 PM';
@@ -2602,7 +2609,8 @@ function renderPrayerTable(timings, source) {
   tbody.innerHTML = '';
   PRAYER_ROWS.forEach(p => {
     const rawTime = (timings[p.key] || '').replace(/\s*\(.*\)/, '').trim();
-    const begins  = to12h(rawTime);
+    // Use fixed begins time if defined, otherwise calculate from raw API/fallback time
+    const begins  = (FIXED_BEGINS && FIXED_BEGINS[p.key]) ? FIXED_BEGINS[p.key] : to12h(rawTime);
     let iqamaHtml = `<span class="iqama-dash">—</span>`;
     if (p.hasIqama) {
       if (FIXED_IQAMA[p.key]) {
@@ -3245,19 +3253,19 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
   document.getElementById('qm-body').scrollTop = 0;
 
   try {
-    // Fetch Tajweed Arabic + English + Urdu + Hindi in parallel
-    const [tjResp, enResp, urResp, hiResp] = await Promise.all([
-      fetch(`https://api.alquran.cloud/v1/surah/${num}/quran-tajweed`),
+    // Fetch Arabic (Uthmani) + English + Urdu + Hindi in parallel
+    const [arResp, enResp, urResp, hiResp] = await Promise.all([
+      fetch(`https://api.alquran.cloud/v1/surah/${num}/quran-uthmani`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/en.sahih`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/ur.ahmedali`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/hi.hindi`)
     ]);
-    const tjData = await tjResp.json();
+    const arData = await arResp.json();
     const enData = await enResp.json();
     const urData = urResp.ok ? await urResp.json() : null;
     const hiData = hiResp.ok ? await hiResp.json() : null;
 
-    const tjAyahs = tjData.data.ayahs;
+    const arAyahs = arData.data.ayahs;
     const enAyahs = enData.data.ayahs;
     const urAyahs = urData ? urData.data.ayahs : null;
     const hiAyahs = hiData ? hiData.data.ayahs : null;
@@ -3265,28 +3273,15 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
     // Build HTML — wrapped in page-inner for cream background
     let html = '<div class="qm-page-inner">';
 
-    // Tajweed colour legend
-    html += `
-      <div class="qm-tajweed-legend">
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#c0392b"></div><span style="color:#c0392b">Qalqalah</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#1a6bbf"></div><span style="color:#1a6bbf">Madd</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#1a7a40"></div><span style="color:#1a7a40">Idgham</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#0a8040"></div><span style="color:#0a8040">Ghunnah</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#7b3fa0"></div><span style="color:#7b3fa0">Ikhfa</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#c06000"></div><span style="color:#c06000">Iqlab</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#888888"></div><span style="color:#666">Silent</span></div>
-      </div>`;
-
     // Bismillah (except Surah 9)
     if (num !== 9) {
-      html += `<div class="qm-reader-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
+      html += `<div class="qm-reader-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>`;
     }
 
-    tjAyahs.forEach((ayah, i) => {
+    arAyahs.forEach((ayah, i) => {
       const en = enAyahs[i] ? enAyahs[i].text : '';
       const ur = urAyahs && urAyahs[i] ? urAyahs[i].text : '';
       const hi = hiAyahs && hiAyahs[i] ? hiAyahs[i].text : '';
-      // tajweed text already contains <tajweed class="..."> HTML tags — render as innerHTML
       html += `
         <div class="qm-ayah-block">
           <div class="qm-ayah-arabic">
@@ -3306,7 +3301,7 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
         <button class="qm-nav-btn" onclick="showSurahList()">📋 All Surahs</button>
         <button class="qm-nav-btn" onclick="openSurah(${num+1},'','',0)" ${num >= 114 ? 'disabled' : ''}>Next Surah →</button>
       </div>
-    `;
+    </div>`; // close qm-page-inner
 
     readerEl.innerHTML = html;
     document.getElementById('qm-body').scrollTop = 0;
