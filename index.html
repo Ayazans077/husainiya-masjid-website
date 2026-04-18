@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Husainiya Masjid Mehnajpur</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap');
 
     :root {
       --green-dark: #1a4731;
@@ -764,12 +764,12 @@
     }
 
     /* Surah Reader */
-    .qm-reader { padding: 1.5rem; display: none; }
+    .qm-reader { padding: 0; display: none; }
     .qm-reader.show { display: block; }
     .qm-reader-bismillah {
-      font-family: 'Amiri', serif;
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      color: var(--gold-light);
+      font-family: 'Amiri Quran', 'Amiri', serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: #1a0f00;
       direction: rtl;
       text-align: center;
       margin-bottom: 1.5rem;
@@ -778,23 +778,33 @@
       border-radius: 12px;
       border: 1px solid rgba(201,168,76,0.2);
     }
+    /* ── Quran page look ── */
+    .qm-reader {
+      background: #fdf8f0 !important;
+      border-radius: 0 0 16px 16px;
+      box-shadow: inset 0 0 60px rgba(180,140,60,0.07);
+    }
+    .qm-page-inner {
+      padding: 1.5rem 2rem 2rem;
+    }
     .qm-ayah-block {
-      margin-bottom: 1.2rem;
-      padding: 1rem 1.2rem;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 0;
+      padding: 0.25rem 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
       transition: background 0.15s;
     }
-    .qm-ayah-block:hover { background: rgba(255,255,255,0.06); }
+    .qm-ayah-block:hover { background: rgba(201,168,76,0.06); border-radius: 6px; }
     .qm-ayah-arabic {
-      font-family: 'Amiri', serif;
-      font-size: clamp(1.2rem, 3vw, 1.7rem);
-      color: #e8f5e9;
+      font-family: 'Amiri Quran', 'Amiri', serif;
+      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      color: #160f02;
       direction: rtl;
-      text-align: right;
-      line-height: 2.6;
-      margin-bottom: 0.5rem;
+      text-align: justify;
+      text-align-last: right;
+      line-height: 2.9;
+      margin-bottom: 0;
     }
 
     /* ── Tajweed colours ── */
@@ -824,9 +834,9 @@
     /* Tajweed legend strip */
     .qm-tajweed-legend {
       display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
-      padding: 0.75rem 1rem; margin-bottom: 1rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.75rem 1rem; margin-bottom: 1.2rem;
+      background: #fff8ec;
+      border: 1px solid rgba(180,140,60,0.25);
       border-radius: 10px; font-size: 0.72rem;
     }
     .qm-legend-item { display: flex; align-items: center; gap: 0.3rem; }
@@ -835,38 +845,44 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 24px; height: 24px;
-      background: rgba(201,168,76,0.2);
+      width: 26px; height: 26px;
+      background: transparent;
+      border: 1.5px solid #c9a84c;
       border-radius: 50%;
-      color: var(--gold-light);
-      font-size: 0.65rem;
+      color: #8a6010;
+      font-size: 0.62rem;
       font-weight: 700;
-      margin-right: 6px;
+      margin: 0 4px;
       vertical-align: middle;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Amiri Quran', 'Amiri', serif;
     }
     .qm-ayah-translation {
-      color: #7bc89b;
-      font-size: 0.85rem;
+      color: #2d5a3a;
+      font-size: 0.88rem;
       line-height: 1.75;
-      padding-top: 0.5rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 0.4rem 0.6rem;
+      border-top: 1px solid rgba(180,140,60,0.2);
+      background: rgba(255,255,255,0.6);
+      border-radius: 0 0 6px 6px;
     }
     .qm-ayah-urdu {
       font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
       direction: rtl; text-align: right;
-      color: #c8e6c9; font-size: 1rem; line-height: 2;
-      padding-top: 0.4rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #1a3a28; font-size: 1.05rem; line-height: 2.2;
+      padding: 0.4rem 0.6rem;
+      border-top: 1px solid rgba(180,140,60,0.15);
+      background: rgba(255,255,255,0.5);
     }
     .qm-ayah-hindi {
-      color: #a5d6a7; font-size: 0.85rem; line-height: 1.75;
-      padding-top: 0.4rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #3a2a1a; font-size: 0.88rem; line-height: 1.75;
+      padding: 0.4rem 0.6rem;
+      border-top: 1px solid rgba(180,140,60,0.15);
+      background: rgba(255,255,255,0.4);
+      border-radius: 0 0 6px 6px;
     }
     .qm-trans-label {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; opacity: 0.5; margin-bottom: 0.15rem; display: block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #c9a84c; margin-bottom: 0.15rem; display: block;
     }
     .qm-loading-spinner {
       text-align: center;
@@ -3246,19 +3262,19 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
     const urAyahs = urData ? urData.data.ayahs : null;
     const hiAyahs = hiData ? hiData.data.ayahs : null;
 
-    // Build HTML
-    let html = '';
+    // Build HTML — wrapped in page-inner for cream background
+    let html = '<div class="qm-page-inner">';
 
     // Tajweed colour legend
     html += `
       <div class="qm-tajweed-legend">
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ef5350"></div><span style="color:#ef5350">Qalqalah</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#6fa8ff"></div><span style="color:#6fa8ff">Madd</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#4caf7d"></div><span style="color:#4caf7d">Idgham</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#69f0ae"></div><span style="color:#69f0ae">Ghunnah</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ce93d8"></div><span style="color:#ce93d8">Ikhfa</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ffb74d"></div><span style="color:#ffb74d">Iqlab</span></div>
-        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#aaaaaa"></div><span style="color:#aaaaaa">Silent</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#c0392b"></div><span style="color:#c0392b">Qalqalah</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#1a6bbf"></div><span style="color:#1a6bbf">Madd</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#1a7a40"></div><span style="color:#1a7a40">Idgham</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#0a8040"></div><span style="color:#0a8040">Ghunnah</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#7b3fa0"></div><span style="color:#7b3fa0">Ikhfa</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#c06000"></div><span style="color:#c06000">Iqlab</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#888888"></div><span style="color:#666">Silent</span></div>
       </div>`;
 
     // Bismillah (except Surah 9)
