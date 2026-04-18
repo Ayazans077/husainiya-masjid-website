@@ -962,6 +962,45 @@
     }
     .contact-item .ci-text strong { display: block; color: var(--green-dark); font-size: 0.82rem; margin-bottom: 2px; }
     .contact-item .ci-text span { color: var(--text-mid); font-size: 0.9rem; line-height: 1.5; }
+
+    /* Plus Code box */
+    .plus-code-box {
+      background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+      border: 2px solid var(--green-light);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0 1rem;
+    }
+    .pc-label { font-size: 0.75rem; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .pc-help  { font-weight: 400; color: #666; text-transform: none; letter-spacing: 0; }
+    .pc-row   { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .pc-code  {
+      flex: 1; font-family: 'Courier New', monospace; font-size: 1.25rem; font-weight: 700;
+      color: var(--green-dark); letter-spacing: 0.06em; background: #fff;
+      padding: 0.45rem 0.8rem; border-radius: 8px; border: 1px solid #c8e6c9;
+    }
+    .pc-copy-btn {
+      padding: 0.45rem 0.9rem; background: var(--green-mid); color: #fff;
+      border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap;
+      font-family: 'Poppins', sans-serif;
+    }
+    .pc-copy-btn:hover  { background: var(--green-dark); }
+    .pc-copy-btn:active { transform: scale(0.95); }
+    .pc-note { font-size: 0.75rem; color: #5a8a6a; line-height: 1.5; }
+
+    /* Directions button */
+    .directions-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      width: 100%; padding: 0.85rem 1rem; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1a5c38, var(--green-mid));
+      color: #fff; text-decoration: none; border-radius: 12px;
+      font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em;
+      box-shadow: 0 4px 14px rgba(26,71,49,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .directions-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,71,49,0.4); }
+
     .map-embed-wrap {
       border-radius: 20px;
       overflow: hidden;
@@ -1797,9 +1836,28 @@
           <div class="ci-icon">📍</div>
           <div class="ci-text">
             <strong data-i18n="addr_label">Address</strong>
-            <span>M4C9+F7C, Mehnajpur-Sidhauna Marg,<br/>Lalmau, Uttar Pradesh 276203, India</span>
+            <span>Mehnajpur-Sidhauna Marg,<br>Lalmau, Uttar Pradesh 276203, India</span>
           </div>
         </div>
+
+        <!-- Plus Code box -->
+        <div class="plus-code-box">
+          <div class="pc-label">📌 Google Plus Code <span class="pc-help">(no house number? use this!)</span></div>
+          <div class="pc-row">
+            <span class="pc-code" id="pc-code-text">M4C9+F7C, Lalmau</span>
+            <button class="pc-copy-btn" onclick="copyPlusCode()" id="pc-copy-btn" title="Copy code">
+              📋 Copy
+            </button>
+          </div>
+          <div class="pc-note">Type this code in Google Maps or any navigation app — it will take you to the exact location.</div>
+        </div>
+
+        <!-- Directions button -->
+        <a class="directions-btn"
+           href="https://www.google.com/maps/dir/?api=1&destination=M4C9%2BF7C+Lalmau+Uttar+Pradesh+India"
+           target="_blank" rel="noopener">
+          🗺️ Get Directions on Google Maps
+        </a>
         <div class="contact-item">
           <div class="ci-icon">📞</div>
           <div class="ci-text">
@@ -1830,11 +1888,11 @@
         </div>
       </div>
 
-      <!-- Google Maps Embed -->
+      <!-- Google Maps Embed — pinned to Plus Code M4C9+F7C -->
       <div class="map-embed-wrap">
         <iframe
           title="Husainiya Masjid Mehnajpur Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14374.1!2d82.5!3d26.25!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sHusainiya+Masjid+Mehnajpur%2C+Lalmau%2C+Uttar+Pradesh%2C+India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          src="https://maps.google.com/maps?q=M4C9%2BF7C+Lalmau+Uttar+Pradesh+India&z=16&output=embed"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
@@ -2214,6 +2272,23 @@ function selectAmount(btn) {
 // ═══════════════════════════════════════════════════════════
 //  COPY UPI ID
 // ═══════════════════════════════════════════════════════════
+function copyPlusCode() {
+  const code = 'M4C9+F7C, Lalmau';
+  const btn = document.getElementById('pc-copy-btn');
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✅ Copied!';
+    btn.style.background = '#388e3c';
+    setTimeout(() => { btn.textContent = '📋 Copy'; btn.style.background = ''; }, 2200);
+  }).catch(() => {
+    // fallback
+    const el = document.createElement('textarea');
+    el.value = code; document.body.appendChild(el); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = '📋 Copy'; }, 2200);
+  });
+}
+
 function copyUPI() {
   const upiText = document.getElementById('upi-id-text').innerText;
   const btn = document.getElementById('copy-upi-btn');
@@ -2243,9 +2318,14 @@ function copyUPI() {
 
 // ── Editable Iqama offsets (minutes after adhan) ──────────
 // Change these values to match your masjid's schedule.
+// Fixed iqama times (override offset — set to null to use offset instead)
+const FIXED_IQAMA = {
+  Dhuhr: '1:30 PM',   // fixed time, not offset-based
+};
+
 const IQAMA_OFFSETS = {
   Fajr:    20,   // 20 min after Fajr adhan
-  Dhuhr:   30,   // 30 min after Dhuhr adhan
+  Dhuhr:   30,   // (ignored — FIXED_IQAMA.Dhuhr used instead)
   Asr:     15,   // 15 min after Asr adhan
   Maghrib:  5,   //  5 min after Maghrib adhan
   Isha:    30,   // 30 min after Isha adhan
@@ -2457,8 +2537,12 @@ function renderPrayerTable(timings, source) {
     const rawTime = (timings[p.key] || '').replace(/\s*\(.*\)/, '').trim();
     const begins  = to12h(rawTime);
     let iqamaHtml = `<span class="iqama-dash">—</span>`;
-    if (p.hasIqama && IQAMA_OFFSETS[p.key] != null) {
-      iqamaHtml = addMinutes(rawTime, IQAMA_OFFSETS[p.key]);
+    if (p.hasIqama) {
+      if (FIXED_IQAMA[p.key]) {
+        iqamaHtml = FIXED_IQAMA[p.key];
+      } else if (IQAMA_OFFSETS[p.key] != null) {
+        iqamaHtml = addMinutes(rawTime, IQAMA_OFFSETS[p.key]);
+      }
     }
     const tr = document.createElement('tr');
     tr.id = `pt-row-${p.key}`;
