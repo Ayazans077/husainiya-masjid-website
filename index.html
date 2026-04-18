@@ -793,9 +793,44 @@
       color: #e8f5e9;
       direction: rtl;
       text-align: right;
-      line-height: 2.2;
+      line-height: 2.6;
       margin-bottom: 0.5rem;
     }
+
+    /* ── Tajweed colours ── */
+    /* Hamzat Wasl / Lam Shamsiyah — light grey (silent/assimilated) */
+    tajweed.ham_wasl, tajweed.laam_shamsiyah { color: #aaaaaa; }
+    /* Madd — blue shades (elongation rules) */
+    tajweed.madda_normal       { color: #6fa8ff; }
+    tajweed.madda_permissible  { color: #5b8fe8; }
+    tajweed.madda_obligatory   { color: #4070d0; }
+    tajweed.madda_necessary    { color: #2255c0; }
+    /* Idgham with Ghunnah — green (merging with nasal) */
+    tajweed.idgham_ghunnah       { color: #4caf7d; }
+    tajweed.idgham_wo_ghunnah    { color: #81c784; }
+    tajweed.idgham_mutajanisayn  { color: #66bb6a; }
+    tajweed.idgham_mutaqaribayan { color: #a5d6a7; }
+    tajweed.idgham_shafawi       { color: #4db87a; }
+    /* Ikhfa — purple (concealment) */
+    tajweed.ikhfaa         { color: #ce93d8; }
+    tajweed.ikhfaa_shafawi { color: #ba68c8; }
+    /* Iqlab — orange (conversion) */
+    tajweed.iqlab { color: #ffb74d; }
+    /* Qalqalah — red (echoing sound) */
+    tajweed.qalaqah { color: #ef5350; }
+    /* Ghunnah — bright green (nasal prolongation) */
+    tajweed.ghunnah { color: #69f0ae; }
+
+    /* Tajweed legend strip */
+    .qm-tajweed-legend {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+      padding: 0.75rem 1rem; margin-bottom: 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; font-size: 0.72rem;
+    }
+    .qm-legend-item { display: flex; align-items: center; gap: 0.3rem; }
+    .qm-legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .qm-ayah-num {
       display: inline-flex;
       align-items: center;
@@ -3194,19 +3229,19 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
   document.getElementById('qm-body').scrollTop = 0;
 
   try {
-    // Fetch Arabic + English + Urdu + Hindi in parallel
-    const [arResp, enResp, urResp, hiResp] = await Promise.all([
-      fetch(`https://api.alquran.cloud/v1/surah/${num}`),
+    // Fetch Tajweed Arabic + English + Urdu + Hindi in parallel
+    const [tjResp, enResp, urResp, hiResp] = await Promise.all([
+      fetch(`https://api.alquran.cloud/v1/surah/${num}/quran-tajweed`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/en.sahih`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/ur.ahmedali`),
       fetch(`https://api.alquran.cloud/v1/surah/${num}/hi.hindi`)
     ]);
-    const arData = await arResp.json();
+    const tjData = await tjResp.json();
     const enData = await enResp.json();
     const urData = urResp.ok ? await urResp.json() : null;
     const hiData = hiResp.ok ? await hiResp.json() : null;
 
-    const arAyahs = arData.data.ayahs;
+    const tjAyahs = tjData.data.ayahs;
     const enAyahs = enData.data.ayahs;
     const urAyahs = urData ? urData.data.ayahs : null;
     const hiAyahs = hiData ? hiData.data.ayahs : null;
@@ -3214,15 +3249,28 @@ async function openSurah(num, arabicName, englishName, totalAyahs) {
     // Build HTML
     let html = '';
 
+    // Tajweed colour legend
+    html += `
+      <div class="qm-tajweed-legend">
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ef5350"></div><span style="color:#ef5350">Qalqalah</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#6fa8ff"></div><span style="color:#6fa8ff">Madd</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#4caf7d"></div><span style="color:#4caf7d">Idgham</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#69f0ae"></div><span style="color:#69f0ae">Ghunnah</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ce93d8"></div><span style="color:#ce93d8">Ikhfa</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#ffb74d"></div><span style="color:#ffb74d">Iqlab</span></div>
+        <div class="qm-legend-item"><div class="qm-legend-dot" style="background:#aaaaaa"></div><span style="color:#aaaaaa">Silent</span></div>
+      </div>`;
+
     // Bismillah (except Surah 9)
     if (num !== 9) {
       html += `<div class="qm-reader-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
     }
 
-    arAyahs.forEach((ayah, i) => {
+    tjAyahs.forEach((ayah, i) => {
       const en = enAyahs[i] ? enAyahs[i].text : '';
       const ur = urAyahs && urAyahs[i] ? urAyahs[i].text : '';
       const hi = hiAyahs && hiAyahs[i] ? hiAyahs[i].text : '';
+      // tajweed text already contains <tajweed class="..."> HTML tags — render as innerHTML
       html += `
         <div class="qm-ayah-block">
           <div class="qm-ayah-arabic">
