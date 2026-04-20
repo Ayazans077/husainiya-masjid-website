@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Husainiya Masjid Mehnajpur</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
     :root {
       --green-dark: #1a4731;
@@ -19,8 +19,8 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--text-dark); }
+    html { scroll-behavior: smooth; font-size: 17px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: var(--text-dark); font-size: 1.02rem; font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
     /* ── RTL OVERRIDE ── */
     body.rtl { direction: rtl; text-align: right; }
@@ -53,8 +53,8 @@
     .nav-links a {
       color: #c8e6c9;
       text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 600;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--gold-light); }
@@ -86,7 +86,7 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .lang-btn:hover, .lang-btn.active {
       background: var(--gold);
@@ -304,7 +304,7 @@
     }
     .prayer-table thead th {
       padding: 0.75rem 1.2rem;
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -339,8 +339,8 @@
       flex-shrink: 0;
     }
     .current-prayer .pt-icon { background: var(--green-light); }
-    .pt-name-en { font-weight: 700; color: var(--text-dark); font-size: 0.95rem; display: block; }
-    .pt-name-ur { font-family: 'Amiri', serif; color: #999; font-size: 0.88rem; direction: rtl; display: block; }
+    .pt-name-en { font-weight: 700; color: var(--text-dark); font-size: 1.02rem; display: block; }
+    .pt-name-ur { font-family: 'Amiri', serif; color: #777; font-size: 0.95rem; direction: rtl; display: block; }
     .pt-time {
       text-align: center;
       font-size: 1rem;
@@ -358,7 +358,7 @@
       display: inline-block;
       background: var(--green-mid);
       color: #fff;
-      font-size: 0.62rem;
+      font-size: 0.72rem;
       font-weight: 700;
       padding: 0.12rem 0.45rem;
       border-radius: 4px;
@@ -405,7 +405,7 @@
       color: #c62828;
       font-size: 0.9rem;
     }
-    .prayer-note { text-align: center; margin-top: 1.2rem; color: #999; font-size: 0.78rem; }
+    .prayer-note { text-align: center; margin-top: 1.2rem; color: #777; font-size: 0.86rem; }
 
     @media (max-width: 480px) {
       .prayer-table td, .prayer-table th { padding: 0.75rem 0.7rem; }
@@ -438,7 +438,7 @@
       margin-bottom: 1.2rem;
       line-height: 2;
     }
-    .about-text p { color: var(--text-mid); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+    .about-text p { color: #3a3a3a; line-height: 1.85; margin-bottom: 1rem; font-size: 1.02rem; }
 
     /* ── EVENTS ── */
     #events { background: var(--green-dark); }
@@ -479,8 +479,8 @@
     }
     .event-card h4 { color: #fff; font-size: 1.1rem; margin-bottom: 0.4rem; }
     .event-card .event-arabic { font-family: 'Amiri', serif; color: var(--gold-light); direction: rtl; font-size: 1rem; margin-bottom: 0.6rem; }
-    .event-card p { color: #a5d6a7; font-size: 0.88rem; line-height: 1.7; }
-    .event-card .date { color: var(--gold-light); font-size: 0.8rem; margin-top: 0.8rem; font-weight: 600; }
+    .event-card p { color: #b8e0b8; font-size: 0.95rem; line-height: 1.75; }
+    .event-card .date { color: var(--gold-light); font-size: 0.88rem; margin-top: 0.8rem; font-weight: 600; }
 
     /* ── GALLERY ── */
     #gallery { background: var(--cream); }
@@ -536,7 +536,7 @@
       color: var(--gold-light);
       margin-bottom: 0.3rem;
     }
-    .quran-surah-sub { color: #a5d6a7; font-size: 0.78rem; margin-bottom: 1.5rem; }
+    .quran-surah-sub { color: #a5d6a7; font-size: 0.88rem; margin-bottom: 1.5rem; }
     .quran-bismillah {
       font-family: 'Amiri', serif;
       font-size: clamp(1.6rem, 4vw, 2.4rem);
@@ -582,8 +582,8 @@
     }
     .quran-nav-btn:hover { background: rgba(255,255,255,0.07); }
     .quran-nav-btn .qnb-icon { font-size: 1.6rem; }
-    .quran-nav-btn .qnb-title { color: #fff; font-weight: 600; font-size: 0.88rem; }
-    .quran-nav-btn .qnb-sub { color: #7bc89b; font-size: 0.72rem; }
+    .quran-nav-btn .qnb-title { color: #fff; font-weight: 600; font-size: 0.95rem; }
+    .quran-nav-btn .qnb-sub { color: #7bc89b; font-size: 0.8rem; }
     .quran-cta-row {
       padding: 1.5rem 2rem;
       display: flex;
@@ -680,7 +680,7 @@
       font-family: 'Amiri', serif;
       font-size: 1.2rem;
     }
-    .qm-header-sub { color: #7bc89b; font-size: 0.75rem; font-family: 'Poppins', sans-serif; }
+    .qm-header-sub { color: #7bc89b; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; }
     .qm-close-btn {
       background: rgba(255,255,255,0.08);
       border: none;
@@ -754,8 +754,8 @@
       flex-shrink: 0;
     }
     .qm-surah-info { flex: 1; }
-    .qm-surah-en { color: #fff; font-weight: 600; font-size: 0.92rem; }
-    .qm-surah-meta { color: #5a8a6a; font-size: 0.72rem; margin-top: 1px; }
+    .qm-surah-en { color: #fff; font-weight: 600; font-size: 1rem; }
+    .qm-surah-meta { color: #6aa07e; font-size: 0.82rem; margin-top: 1px; }
     .qm-surah-ar {
       font-family: 'Amiri', serif;
       color: var(--gold-light);
@@ -850,16 +850,16 @@
       border: 1.5px solid #c9a84c;
       border-radius: 50%;
       color: #8a6010;
-      font-size: 0.62rem;
+      font-size: 0.72rem;
       font-weight: 700;
       margin: 0 4px;
       vertical-align: middle;
       font-family: 'Amiri Quran', 'Amiri', serif;
     }
     .qm-ayah-translation {
-      color: #2d5a3a;
-      font-size: 0.88rem;
-      line-height: 1.75;
+      color: #1e3d28;
+      font-size: 0.96rem;
+      line-height: 1.8;
       padding: 0.4rem 0.6rem;
       border-top: 1px solid rgba(180,140,60,0.2);
       background: rgba(255,255,255,0.6);
@@ -874,14 +874,14 @@
       background: rgba(255,255,255,0.5);
     }
     .qm-ayah-hindi {
-      color: #3a2a1a; font-size: 0.88rem; line-height: 1.75;
+      color: #2a1e10; font-size: 0.96rem; line-height: 1.8;
       padding: 0.4rem 0.6rem;
       border-top: 1px solid rgba(180,140,60,0.15);
       background: rgba(255,255,255,0.4);
       border-radius: 0 0 6px 6px;
     }
     .qm-trans-label {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; color: #c9a84c; margin-bottom: 0.15rem; display: block;
     }
     .qm-loading-spinner {
@@ -1009,7 +1009,7 @@
       overflow: hidden;
     }
     .qr-placeholder img { width: 100%; height: 100%; object-fit: contain; }
-    .donation-note { color: #7bc89b; font-size: 0.78rem; margin-top: 1rem; }
+    .donation-note { color: #7bc89b; font-size: 0.88rem; margin-top: 1rem; }
 
     /* ── CONTACT ── */
     #contact { background: var(--cream); }
@@ -1027,8 +1027,8 @@
       font-size: 1.2rem;
       flex-shrink: 0;
     }
-    .contact-item .ci-text strong { display: block; color: var(--green-dark); font-size: 0.82rem; margin-bottom: 2px; }
-    .contact-item .ci-text span { color: var(--text-mid); font-size: 0.9rem; line-height: 1.5; }
+    .contact-item .ci-text strong { display: block; color: var(--green-dark); font-size: 0.9rem; margin-bottom: 2px; }
+    .contact-item .ci-text span { color: var(--text-mid); font-size: 0.98rem; line-height: 1.5; }
 
     /* Plus Code box */
     .plus-code-box {
@@ -1038,7 +1038,7 @@
       padding: 1rem 1.2rem;
       margin: 1rem 0 1rem;
     }
-    .pc-label { font-size: 0.75rem; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .pc-label { font-size: 0.84rem; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
     .pc-help  { font-weight: 400; color: #666; text-transform: none; letter-spacing: 0; }
     .pc-row   { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
     .pc-code  {
@@ -1050,11 +1050,11 @@
       padding: 0.45rem 0.9rem; background: var(--green-mid); color: #fff;
       border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
       cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .pc-copy-btn:hover  { background: var(--green-dark); }
     .pc-copy-btn:active { transform: scale(0.95); }
-    .pc-note { font-size: 0.75rem; color: #5a8a6a; line-height: 1.5; }
+    .pc-note { font-size: 0.84rem; color: #4a7a5a; line-height: 1.5; }
 
     /* Directions button */
     .directions-btn {
@@ -1260,9 +1260,9 @@
     footer .footer-name { color: #fff; font-weight: 700; font-size: 1.1rem; }
     footer .footer-arabic { font-family: 'Amiri', serif; color: var(--gold-light); direction: rtl; font-size: 1.1rem; margin: 0.3rem 0; }
     footer .footer-sep { width: 40px; height: 2px; background: var(--gold); margin: 1rem auto; }
-    footer p { font-size: 0.8rem; color: #5a8a6a; margin-top: 0.3rem; }
+    footer p { font-size: 0.88rem; color: #6a9a7a; margin-top: 0.3rem; }
     footer .footer-links { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-top: 0.8rem; }
-    footer .footer-links a { color: #7baa8a; font-size: 0.78rem; text-decoration: none; transition: color 0.2s; }
+    footer .footer-links a { color: #8bbaa0; font-size: 0.88rem; text-decoration: none; transition: color 0.2s; }
     footer .footer-links a:hover { color: var(--gold-light); }
 
     /* ── WHATSAPP FLOATING BUTTON ── */
@@ -1409,12 +1409,12 @@
   <div class="nav-menu-wrap">
     <ul class="nav-links" id="nav-links">
       <li><a href="#prayer" data-i18n="nav_prayer">Prayer Times</a></li>
-      <li><a href="#about" data-i18n="nav_about">About</a></li>
-      <li><a href="#events" data-i18n="nav_events">Events</a></li>
-      <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
-      <li><a href="#quran">Quran</a></li>
       <li><a href="#qibla">Qibla</a></li>
       <li><a href="#tasbeeh">Tasbeeh</a></li>
+      <li><a href="#quran">Quran</a></li>
+      <li><a href="#events" data-i18n="nav_events">Events</a></li>
+      <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
       <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
       <li><a href="#donation" class="nav-donate-btn" data-i18n="nav_donate">Donate Now</a></li>
     </ul>
@@ -1487,180 +1487,6 @@
       </div>
     </div>
     <p class="prayer-note" data-i18n="prayer_note">⚠️ Iqama times are set by the masjid and may vary. Times auto-update daily.</p>
-  </div>
-</section>
-
-<!-- ─── ABOUT ─── -->
-<section id="about">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="label" data-i18n="about_label">About Us</span>
-      <h2 data-i18n="about_heading">About the Masjid</h2>
-      <div class="arabic" id="about-arabic">مسجد کا تعارف</div>
-      <div class="divider-gold"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-img-box fade-in-left">
-        <img
-          src="masjid.jpg"
-          alt="Husainiya Masjid Mehnajpur"
-          loading="lazy"
-        />
-      </div>
-      <div class="about-text fade-in-right">
-        <h3 data-i18n="about_title">A Place of Peace &amp; Worship</h3>
-        <div class="arabic-quote">إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ<br/><small style="font-size:0.85em;color:#a07b20">"The mosques of Allah are maintained only by those who believe in Allah." — At-Tawbah 9:18</small></div>
-        <p data-i18n="about_p1">Husainiya Masjid Mehnajpur is a beloved place of worship serving the Muslim community of Mehnajpur, Lalmau, and the surrounding areas of Uttar Pradesh. Our masjid is open to all Muslims and welcomes everyone seeking guidance, prayer, and community.</p>
-        <p data-i18n="about_p2">We provide daily prayers, Friday Jumu'ah, religious education, and community programs for people of all ages. The masjid stands as a beacon of faith, unity, and spiritual growth for all.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── EVENTS ─── -->
-<section id="events">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="label" data-i18n="events_label">Events</span>
-      <h2 data-i18n="events_heading" style="color:#fff;">Events &amp; Announcements</h2>
-      <div class="arabic" style="color: var(--gold-light);" id="events-arabic">پروگرام اور اعلانات</div>
-      <div class="divider-gold"></div>
-    </div>
-    <div class="events-grid fade-in">
-      <div class="event-card">
-        <span class="event-badge" data-i18n="badge_weekly">Weekly</span>
-        <h4 data-i18n="event1_title">Jumu'ah Prayer</h4>
-        <div class="event-arabic">نمازِ جمعہ</div>
-        <p data-i18n="event1_desc">Join us every Friday for the congregational Jumu'ah prayer followed by an Islamic lecture. All are welcome.</p>
-        <div class="date" data-i18n="event1_date">📅 Every Friday · 1:00 PM</div>
-      </div>
-      <div class="event-card">
-        <span class="event-badge" data-i18n="badge_edu">Education</span>
-        <h4 data-i18n="event2_title">Quran Classes</h4>
-        <div class="event-arabic">قرآن کریم کی کلاسیں</div>
-        <p data-i18n="event2_desc">Daily Quran recitation and Tajweed classes for children and adults. Learn to read and understand the Holy Quran.</p>
-        <div class="date" data-i18n="event2_date">📅 Daily · After Fajr &amp; Asr</div>
-      </div>
-      <div class="event-card">
-        <span class="event-badge" data-i18n="badge_monthly">Monthly</span>
-        <h4 data-i18n="event3_title">Islamic Lecture Series</h4>
-        <div class="event-arabic">دینی بیان</div>
-        <p data-i18n="event3_desc">Monthly lectures by visiting scholars covering topics of faith, community, and Islamic jurisprudence.</p>
-        <div class="date" data-i18n="event3_date">📅 First Sunday of each month</div>
-      </div>
-      <div class="event-card">
-        <span class="event-badge" data-i18n="badge_annual">Annual</span>
-        <h4 data-i18n="event4_title">Ramadan Programs</h4>
-        <div class="event-arabic">ماہِ رمضان پروگرام</div>
-        <p data-i18n="event4_desc">Special Tarawih prayers, Iftar gatherings, I'tikaf, and Laylatul Qadr night vigils throughout the holy month.</p>
-        <div class="date" data-i18n="event4_date">📅 Every Ramadan · Details TBA</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── GALLERY ─── -->
-<section id="gallery">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="label" data-i18n="gallery_label">Gallery</span>
-      <h2 data-i18n="gallery_heading">Gallery</h2>
-      <div class="arabic" id="gallery-arabic">تصاویر</div>
-      <div class="divider-gold"></div>
-    </div>
-    <div class="gallery-grid fade-in">
-      <div class="gallery-item">
-        <img src="masjid.jpg" alt="Husainiya Masjid Mehnajpur" loading="lazy"/>
-        <div class="overlay"><span>Husainiya Masjid</span></div>
-      </div>
-      <div class="gallery-item" onclick="openQuranModal()" style="cursor:pointer;" title="Click to read the Holy Quran">
-        <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=600&q=80" alt="Holy Quran" loading="lazy"/>
-        <div class="overlay"><span>📖 Click to Read Quran</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=600&q=80" alt="Islamic Architecture" loading="lazy"/>
-        <div class="overlay"><span>Islamic Architecture</span></div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1519817914152-22d216bb9170?w=600&q=80" alt="Islamic Calligraphy" loading="lazy"/>
-        <div class="overlay"><span>Islamic Calligraphy</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── HOLY QURAN ─── -->
-<section id="quran">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="label">القرآن الكريم</span>
-      <h2>Holy Quran</h2>
-      <div class="arabic" style="color:var(--gold-light);">قرآن کریم</div>
-      <div class="divider-gold"></div>
-    </div>
-
-    <div class="quran-card fade-in">
-
-      <!-- Surah Al-Fatiha -->
-      <div class="quran-fatiha-box">
-        <div class="quran-surah-title">سُورَةُ الْفَاتِحَة</div>
-        <div class="quran-surah-sub">Surah Al-Fatiha · The Opening · 7 Verses · Makki</div>
-        <div class="quran-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-        <div class="quran-ayah">
-          ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ١ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٢ مَٰلِكِ يَوْمِ ٱلدِّينِ ٣
-          إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ٤ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ٥
-          صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ٦
-        </div>
-        <div class="quran-translation">
-          "In the name of Allah, the Most Gracious, the Most Merciful. Praise be to Allah, Lord of all the worlds — the Most Gracious, the Most Merciful — Master of the Day of Judgement. You alone we worship, and You alone we ask for help. Guide us to the straight path — the path of those You have blessed, not of those who have earned anger, nor of those who are astray."
-        </div>
-      </div>
-
-      <!-- Quick navigation buttons -->
-      <div class="quran-nav-grid">
-        <a class="quran-nav-btn" href="https://quran.com/1" target="_blank" rel="noopener">
-          <span class="qnb-icon">📖</span>
-          <span class="qnb-title">Al-Fatiha</span>
-          <span class="qnb-sub">The Opening</span>
-        </a>
-        <a class="quran-nav-btn" href="https://quran.com/2" target="_blank" rel="noopener">
-          <span class="qnb-icon">📜</span>
-          <span class="qnb-title">Al-Baqarah</span>
-          <span class="qnb-sub">The Cow</span>
-        </a>
-        <a class="quran-nav-btn" href="https://quran.com/36" target="_blank" rel="noopener">
-          <span class="qnb-icon">🌙</span>
-          <span class="qnb-title">Ya-Sin</span>
-          <span class="qnb-sub">Heart of Quran</span>
-        </a>
-        <a class="quran-nav-btn" href="https://quran.com/55" target="_blank" rel="noopener">
-          <span class="qnb-icon">✨</span>
-          <span class="qnb-title">Ar-Rahman</span>
-          <span class="qnb-sub">The Most Merciful</span>
-        </a>
-        <a class="quran-nav-btn" href="https://quran.com/67" target="_blank" rel="noopener">
-          <span class="qnb-icon">🌟</span>
-          <span class="qnb-title">Al-Mulk</span>
-          <span class="qnb-sub">The Sovereignty</span>
-        </a>
-        <a class="quran-nav-btn" href="https://quran.com/112" target="_blank" rel="noopener">
-          <span class="qnb-icon">☝️</span>
-          <span class="qnb-title">Al-Ikhlas</span>
-          <span class="qnb-sub">The Sincerity</span>
-        </a>
-      </div>
-
-      <!-- CTA buttons -->
-      <div class="quran-cta-row">
-        <button class="btn-quran-read" onclick="openQuranModal()">
-          📖 Read Full Quran (All 114 Surahs)
-        </button>
-        <a class="btn-quran-listen" href="https://quran.com/1?startingVerse=1" target="_blank" rel="noopener">
-          🎧 Listen to Recitation
-        </a>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -1883,6 +1709,180 @@
         MashaAllah! One round complete 🌟
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOLY QURAN ─── -->
+<section id="quran">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="label">القرآن الكريم</span>
+      <h2>Holy Quran</h2>
+      <div class="arabic" style="color:var(--gold-light);">قرآن کریم</div>
+      <div class="divider-gold"></div>
+    </div>
+
+    <div class="quran-card fade-in">
+
+      <!-- Surah Al-Fatiha -->
+      <div class="quran-fatiha-box">
+        <div class="quran-surah-title">سُورَةُ الْفَاتِحَة</div>
+        <div class="quran-surah-sub">Surah Al-Fatiha · The Opening · 7 Verses · Makki</div>
+        <div class="quran-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div class="quran-ayah">
+          ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ١ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٢ مَٰلِكِ يَوْمِ ٱلدِّينِ ٣
+          إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ٤ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ٥
+          صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ٦
+        </div>
+        <div class="quran-translation">
+          "In the name of Allah, the Most Gracious, the Most Merciful. Praise be to Allah, Lord of all the worlds — the Most Gracious, the Most Merciful — Master of the Day of Judgement. You alone we worship, and You alone we ask for help. Guide us to the straight path — the path of those You have blessed, not of those who have earned anger, nor of those who are astray."
+        </div>
+      </div>
+
+      <!-- Quick navigation buttons -->
+      <div class="quran-nav-grid">
+        <a class="quran-nav-btn" href="https://quran.com/1" target="_blank" rel="noopener">
+          <span class="qnb-icon">📖</span>
+          <span class="qnb-title">Al-Fatiha</span>
+          <span class="qnb-sub">The Opening</span>
+        </a>
+        <a class="quran-nav-btn" href="https://quran.com/2" target="_blank" rel="noopener">
+          <span class="qnb-icon">📜</span>
+          <span class="qnb-title">Al-Baqarah</span>
+          <span class="qnb-sub">The Cow</span>
+        </a>
+        <a class="quran-nav-btn" href="https://quran.com/36" target="_blank" rel="noopener">
+          <span class="qnb-icon">🌙</span>
+          <span class="qnb-title">Ya-Sin</span>
+          <span class="qnb-sub">Heart of Quran</span>
+        </a>
+        <a class="quran-nav-btn" href="https://quran.com/55" target="_blank" rel="noopener">
+          <span class="qnb-icon">✨</span>
+          <span class="qnb-title">Ar-Rahman</span>
+          <span class="qnb-sub">The Most Merciful</span>
+        </a>
+        <a class="quran-nav-btn" href="https://quran.com/67" target="_blank" rel="noopener">
+          <span class="qnb-icon">🌟</span>
+          <span class="qnb-title">Al-Mulk</span>
+          <span class="qnb-sub">The Sovereignty</span>
+        </a>
+        <a class="quran-nav-btn" href="https://quran.com/112" target="_blank" rel="noopener">
+          <span class="qnb-icon">☝️</span>
+          <span class="qnb-title">Al-Ikhlas</span>
+          <span class="qnb-sub">The Sincerity</span>
+        </a>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="quran-cta-row">
+        <button class="btn-quran-read" onclick="openQuranModal()">
+          📖 Read Full Quran (All 114 Surahs)
+        </button>
+        <a class="btn-quran-listen" href="https://quran.com/1?startingVerse=1" target="_blank" rel="noopener">
+          🎧 Listen to Recitation
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVENTS ─── -->
+<section id="events">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="label" data-i18n="events_label">Events</span>
+      <h2 data-i18n="events_heading" style="color:#fff;">Events &amp; Announcements</h2>
+      <div class="arabic" style="color: var(--gold-light);" id="events-arabic">پروگرام اور اعلانات</div>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="events-grid fade-in">
+      <div class="event-card">
+        <span class="event-badge" data-i18n="badge_weekly">Weekly</span>
+        <h4 data-i18n="event1_title">Jumu'ah Prayer</h4>
+        <div class="event-arabic">نمازِ جمعہ</div>
+        <p data-i18n="event1_desc">Join us every Friday for the congregational Jumu'ah prayer followed by an Islamic lecture. All are welcome.</p>
+        <div class="date" data-i18n="event1_date">📅 Every Friday · 1:00 PM</div>
+      </div>
+      <div class="event-card">
+        <span class="event-badge" data-i18n="badge_edu">Education</span>
+        <h4 data-i18n="event2_title">Quran Classes</h4>
+        <div class="event-arabic">قرآن کریم کی کلاسیں</div>
+        <p data-i18n="event2_desc">Daily Quran recitation and Tajweed classes for children and adults. Learn to read and understand the Holy Quran.</p>
+        <div class="date" data-i18n="event2_date">📅 Daily · After Fajr &amp; Asr</div>
+      </div>
+      <div class="event-card">
+        <span class="event-badge" data-i18n="badge_monthly">Monthly</span>
+        <h4 data-i18n="event3_title">Islamic Lecture Series</h4>
+        <div class="event-arabic">دینی بیان</div>
+        <p data-i18n="event3_desc">Monthly lectures by visiting scholars covering topics of faith, community, and Islamic jurisprudence.</p>
+        <div class="date" data-i18n="event3_date">📅 First Sunday of each month</div>
+      </div>
+      <div class="event-card">
+        <span class="event-badge" data-i18n="badge_annual">Annual</span>
+        <h4 data-i18n="event4_title">Ramadan Programs</h4>
+        <div class="event-arabic">ماہِ رمضان پروگرام</div>
+        <p data-i18n="event4_desc">Special Tarawih prayers, Iftar gatherings, I'tikaf, and Laylatul Qadr night vigils throughout the holy month.</p>
+        <div class="date" data-i18n="event4_date">📅 Every Ramadan · Details TBA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="label" data-i18n="gallery_label">Gallery</span>
+      <h2 data-i18n="gallery_heading">Gallery</h2>
+      <div class="arabic" id="gallery-arabic">تصاویر</div>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="gallery-grid fade-in">
+      <div class="gallery-item">
+        <img src="masjid.jpg" alt="Husainiya Masjid Mehnajpur" loading="lazy"/>
+        <div class="overlay"><span>Husainiya Masjid</span></div>
+      </div>
+      <div class="gallery-item" onclick="openQuranModal()" style="cursor:pointer;" title="Click to read the Holy Quran">
+        <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=600&q=80" alt="Holy Quran" loading="lazy"/>
+        <div class="overlay"><span>📖 Click to Read Quran</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=600&q=80" alt="Islamic Architecture" loading="lazy"/>
+        <div class="overlay"><span>Islamic Architecture</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1519817914152-22d216bb9170?w=600&q=80" alt="Islamic Calligraphy" loading="lazy"/>
+        <div class="overlay"><span>Islamic Calligraphy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="label" data-i18n="about_label">About Us</span>
+      <h2 data-i18n="about_heading">About the Masjid</h2>
+      <div class="arabic" id="about-arabic">مسجد کا تعارف</div>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-img-box fade-in-left">
+        <img
+          src="masjid.jpg"
+          alt="Husainiya Masjid Mehnajpur"
+          loading="lazy"
+        />
+      </div>
+      <div class="about-text fade-in-right">
+        <h3 data-i18n="about_title">A Place of Peace &amp; Worship</h3>
+        <div class="arabic-quote">إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ<br/><small style="font-size:0.85em;color:#a07b20">"The mosques of Allah are maintained only by those who believe in Allah." — At-Tawbah 9:18</small></div>
+        <p data-i18n="about_p1">Husainiya Masjid Mehnajpur is a beloved place of worship serving the Muslim community of Mehnajpur, Lalmau, and the surrounding areas of Uttar Pradesh. Our masjid is open to all Muslims and welcomes everyone seeking guidance, prayer, and community.</p>
+        <p data-i18n="about_p2">We provide daily prayers, Friday Jumu'ah, religious education, and community programs for people of all ages. The masjid stands as a beacon of faith, unity, and spiritual growth for all.</p>
+      </div>
     </div>
   </div>
 </section>
