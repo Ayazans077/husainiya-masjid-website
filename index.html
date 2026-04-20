@@ -1011,6 +1011,98 @@
     .qr-placeholder img { width: 100%; height: 100%; object-fit: contain; }
     .donation-note { color: #7bc89b; font-size: 0.88rem; margin-top: 1rem; }
 
+    /* ── DONATION ENHANCED ── */
+    .don-tabs {
+      display: flex; gap: 0; margin: 1.4rem 0 0;
+      border-radius: 12px; overflow: hidden;
+      border: 1.5px solid rgba(201,168,76,0.35);
+    }
+    .don-tab {
+      flex: 1; padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.06);
+      color: #a5d6a7; font-weight: 600; font-size: 0.95rem;
+      border: none; cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .don-tab:first-child { border-right: 1.5px solid rgba(201,168,76,0.35); }
+    .don-tab.active {
+      background: var(--gold);
+      color: var(--green-dark);
+    }
+    .don-tab:not(.active):hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .don-panel { margin-top: 1.4rem; }
+    .don-region-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .don-region-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(201,168,76,0.25);
+    }
+    .india-amt, .intl-amt { font-size: 1rem; }
+    .custom-amt-row {
+      display: none; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 10px; padding: 0.5rem 1rem;
+      margin: -0.5rem 0 1rem; max-width: 260px;
+    }
+    .custom-amt-row span { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+    .custom-amt-row input {
+      background: transparent; border: none; outline: none;
+      color: #fff; font-size: 1.05rem; font-weight: 600; width: 140px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .custom-amt-row input::placeholder { color: rgba(255,255,255,0.3); }
+    .don-summary {
+      text-align: center; font-size: 1.05rem; color: var(--gold-light);
+      margin: 0.4rem 0 1.2rem; min-height: 1.6rem;
+      transition: opacity 0.2s;
+    }
+    .don-pay-btn {
+      display: block; width: 100%; text-align: center;
+      padding: 0.85rem 1rem; margin-top: 0.9rem;
+      background: var(--green-mid); color: #fff;
+      border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .don-pay-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
+    .don-pay-btn:active { transform: scale(0.97); }
+    .don-pay-btn.paypal-btn { background: #003087; }
+    .don-pay-btn.paypal-btn:hover { background: #001e5a; }
+    .don-pay-btn.stripe-btn { background: #5851D8; }
+    .don-pay-btn.stripe-btn:hover { background: #3d38a0; }
+    .fee-row {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 0.75rem 1rem;
+      margin: 0.8rem 0; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .fee-row:hover { background: rgba(255,255,255,0.09); }
+    .fee-row input[type="checkbox"] { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
+    .fee-row label { color: #a5d6a7; font-size: 0.88rem; line-height: 1.5; cursor: pointer; }
+    .fee-row label strong { color: #fff; }
+    .don-trust {
+      font-size: 0.8rem; color: #7bc89b; margin-top: 1rem;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      line-height: 1.6;
+    }
+    .int-methods-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;
+    }
+    @media (max-width: 540px) { .int-methods-grid { grid-template-columns: 1fr; } }
+
     /* ── CONTACT ── */
     #contact { background: var(--cream); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
@@ -1503,33 +1595,122 @@
       <div class="icon">🤲</div>
       <h3 data-i18n="donate_title">Give Sadaqah</h3>
       <div class="arabic">مَن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ<br/><small style="font-size:0.82em;opacity:0.8">"Who will lend Allah a goodly loan so He may multiply it for them?" — Al-Baqarah 2:245</small></div>
-      <p data-i18n="donate_desc">Your generous donations help maintain the masjid, support community programs, educational activities, and the overall well-being of the Muslim community in Mehnajpur.</p>
-      <div class="donation-amounts">
-        <button class="amount-btn" onclick="selectAmount(this)">₹100</button>
-        <button class="amount-btn" onclick="selectAmount(this)">₹500</button>
-        <button class="amount-btn" onclick="selectAmount(this)">₹1,000</button>
-        <button class="amount-btn" onclick="selectAmount(this)">₹5,000</button>
-        <button class="amount-btn" onclick="selectAmount(this)" data-i18n="custom_amt">Custom</button>
+      <p data-i18n="donate_desc">Your generous donations help maintain the masjid, support community programs, and the well-being of the Muslim community in Mehnajpur.</p>
+
+      <!-- ── Region Tabs ── -->
+      <div class="don-tabs">
+        <button class="don-tab active" onclick="switchDonTab('india', this)">🇮🇳 India (UPI)</button>
+        <button class="don-tab" onclick="switchDonTab('intl', this)">🌍 International (USD)</button>
       </div>
-      <div class="donation-methods">
-        <div class="donation-method-card">
-          <h5 data-i18n="upi_label">💳 UPI / GPay / PhonePe</h5>
-          <div class="upi-id-box">
-            <span id="upi-id-text">husainiyamasjid@okaxis</span>
-            <button class="copy-btn" onclick="copyUPI()" id="copy-upi-btn" data-i18n="copy_btn">Copy</button>
-          </div>
-          <p style="color:#7bc89b; font-size:0.75rem; margin-top:0.5rem;" data-i18n="upi_note">Scan or copy UPI ID to donate directly</p>
+
+      <!-- ══════════════════════════════════
+           INDIA PANEL
+      ══════════════════════════════════ -->
+      <div class="don-panel" id="don-india">
+        <div class="don-region-label">🇮🇳 Pay with UPI — Zero fees, 100% reaches the masjid</div>
+
+        <!-- Amount buttons -->
+        <div class="donation-amounts">
+          <button class="amount-btn india-amt" onclick="selectDonAmount(this,'india')">₹100</button>
+          <button class="amount-btn india-amt" onclick="selectDonAmount(this,'india')">₹500</button>
+          <button class="amount-btn india-amt" onclick="selectDonAmount(this,'india')">₹1,000</button>
+          <button class="amount-btn india-amt" onclick="selectDonAmount(this,'india')">₹5,000</button>
+          <button class="amount-btn india-amt custom-amt" onclick="selectDonAmount(this,'india')">✏️ Custom</button>
         </div>
-        <div class="donation-method-card">
-          <h5 data-i18n="qr_label">📱 Scan QR Code</h5>
-          <div class="qr-placeholder">
-            <!-- Replace this src with a real UPI QR code image -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=upi://pay?pa=husainiyamasjid@okaxis%26pn=HusainiyaMasjid%26cu=INR" alt="UPI QR Code" />
-          </div>
-          <p style="color:#7bc89b; font-size:0.75rem; margin-top:0.4rem;" data-i18n="qr_note">Scan with any UPI app</p>
+
+        <!-- Custom input -->
+        <div class="custom-amt-row" id="india-custom-row">
+          <span>₹</span>
+          <input type="number" id="india-custom-input" placeholder="Enter amount" min="1"
+                 oninput="handleCustomInput('india')" />
         </div>
+
+        <!-- Summary -->
+        <div class="don-summary" id="india-summary">Select an amount above</div>
+
+        <!-- Payment methods -->
+        <div class="donation-methods">
+          <div class="donation-method-card">
+            <h5>💳 UPI / GPay / PhonePe</h5>
+            <div class="upi-id-box">
+              <span id="upi-id-text">husainiyamasjid@okaxis</span>
+              <button class="copy-btn" onclick="copyUPI()" id="copy-upi-btn">Copy</button>
+            </div>
+            <a class="don-pay-btn" id="upi-pay-btn"
+               href="upi://pay?pa=husainiyamasjid@okaxis&pn=HusainiyaMasjid&cu=INR">
+              📲 Pay via UPI
+            </a>
+          </div>
+          <div class="donation-method-card">
+            <h5>📱 Scan QR Code</h5>
+            <div class="qr-placeholder" style="width:110px;height:110px;margin:0 auto 0.5rem;">
+              <img id="upi-qr-img"
+                   src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=upi://pay?pa=husainiyamasjid@okaxis%26pn=HusainiyaMasjid%26cu=INR"
+                   alt="UPI QR Code" />
+            </div>
+            <p style="color:#7bc89b;font-size:0.8rem;text-align:center;">Scan with any UPI app</p>
+          </div>
+        </div>
+        <p class="don-trust">✅ UPI donations have <strong>zero processing fees</strong> — 100% goes directly to the masjid.</p>
       </div>
-      <p class="donation-note" data-i18n="donate_footer">جزاكم الله خيراً — May Allah reward you abundantly for your generosity.</p>
+
+      <!-- ══════════════════════════════════
+           INTERNATIONAL PANEL
+      ══════════════════════════════════ -->
+      <div class="don-panel" id="don-intl" style="display:none;">
+        <div class="don-region-label">🌍 International Donation — Secure USD Payment</div>
+
+        <!-- Amount buttons -->
+        <div class="donation-amounts">
+          <button class="amount-btn intl-amt" onclick="selectDonAmount(this,'intl')">$5</button>
+          <button class="amount-btn intl-amt" onclick="selectDonAmount(this,'intl')">$10</button>
+          <button class="amount-btn intl-amt" onclick="selectDonAmount(this,'intl')">$20</button>
+          <button class="amount-btn intl-amt" onclick="selectDonAmount(this,'intl')">$50</button>
+          <button class="amount-btn intl-amt custom-amt" onclick="selectDonAmount(this,'intl')">✏️ Custom</button>
+        </div>
+
+        <!-- Custom input -->
+        <div class="custom-amt-row" id="intl-custom-row">
+          <span>$</span>
+          <input type="number" id="intl-custom-input" placeholder="Enter amount" min="1"
+                 oninput="handleCustomInput('intl')" />
+        </div>
+
+        <!-- Cover fee checkbox -->
+        <div class="fee-row" onclick="document.getElementById('cover-fee-chk').click()">
+          <input type="checkbox" id="cover-fee-chk" onclick="event.stopPropagation()" onchange="updateFee()" />
+          <label for="cover-fee-chk" onclick="event.preventDefault()">
+            Add a small amount to cover processing fees <strong>(~2.9% + $0.30)</strong><br/>
+            <span style="font-size:0.82rem;opacity:0.75;">So the masjid receives your full intended amount</span>
+          </label>
+        </div>
+
+        <!-- Summary -->
+        <div class="don-summary" id="intl-summary">Select an amount above</div>
+
+        <!-- Payment methods -->
+        <div class="int-methods-grid">
+          <div class="donation-method-card">
+            <h5>🅿️ PayPal</h5>
+            <p style="color:#a5d6a7;font-size:0.82rem;margin-bottom:0.6rem;">Fast &amp; secure. No account needed.</p>
+            <a class="don-pay-btn paypal-btn" id="paypal-btn"
+               href="https://paypal.me/HusainiyaMasjid" target="_blank" rel="noopener">
+              🅿️ Donate via PayPal
+            </a>
+          </div>
+          <div class="donation-method-card">
+            <h5>💳 Card / Bank (Stripe)</h5>
+            <p style="color:#a5d6a7;font-size:0.82rem;margin-bottom:0.6rem;">Visa, Mastercard, Apple Pay.</p>
+            <a class="don-pay-btn stripe-btn" id="stripe-btn"
+               href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" rel="noopener">
+              💳 Donate via Card
+            </a>
+          </div>
+        </div>
+        <p class="don-trust">ℹ️ 100% of your donation goes to the masjid. Payment processors (PayPal/Stripe) may deduct a small fee — use the checkbox above to cover it.<br/><span style="margin-top:0.3rem;display:block;">💚 To avoid all fees, donate via UPI (India only).</span></p>
+      </div>
+
+      <p class="donation-note" style="margin-top:1.4rem;">جزاكم الله خيراً — May Allah reward you abundantly for your generosity. 🤲</p>
     </div>
   </div>
 </section>
@@ -2330,15 +2511,128 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 });
 
 // ═══════════════════════════════════════════════════════════
-//  DONATION AMOUNT SELECTOR
+//  DONATION — Enhanced India + International
 // ═══════════════════════════════════════════════════════════
+
+const DON_UPI_ID   = 'husainiyamasjid@okaxis';
+const DON_UPI_NAME = 'HusainiyaMasjid';
+const DON_PAYPAL   = 'https://paypal.me/HusainiyaMasjid';
+const DON_STRIPE   = 'https://buy.stripe.com/YOUR_STRIPE_LINK'; // ← replace with real link
+
+// State
+const donState = {
+  india: { amount: 0, isCustom: false },
+  intl:  { amount: 0, isCustom: false, coverFee: false }
+};
+
+// ── Switch between India / International tabs ──────────────
+function switchDonTab(tab, btn) {
+  document.getElementById('don-india').style.display = tab === 'india' ? '' : 'none';
+  document.getElementById('don-intl').style.display  = tab === 'intl'  ? '' : 'none';
+  document.querySelectorAll('.don-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Select preset amount ───────────────────────────────────
+function selectDonAmount(btn, panel) {
+  const isCustom = btn.classList.contains('custom-amt');
+  // Deselect all buttons in this panel
+  document.querySelectorAll(`.${panel}-amt`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const customRow = document.getElementById(`${panel}-custom-row`);
+  if (isCustom) {
+    customRow.style.display = 'flex';
+    donState[panel].isCustom = true;
+    donState[panel].amount   = 0;
+    document.getElementById(`${panel}-custom-input`).focus();
+  } else {
+    customRow.style.display = 'none';
+    donState[panel].isCustom = false;
+    // Parse amount from button text (strips ₹ $ , spaces)
+    donState[panel].amount = parseFloat(btn.textContent.replace(/[₹$,\s✏️]/g, '')) || 0;
+  }
+  refreshDonUI(panel);
+}
+
+// ── Custom amount typed ────────────────────────────────────
+function handleCustomInput(panel) {
+  donState[panel].amount = parseFloat(document.getElementById(`${panel}-custom-input`).value) || 0;
+  refreshDonUI(panel);
+}
+
+// ── Fee checkbox toggled ───────────────────────────────────
+function updateFee() {
+  donState.intl.coverFee = document.getElementById('cover-fee-chk').checked;
+  refreshDonUI('intl');
+}
+
+// ── Calculate final amount including optional fee cover ────
+function calcFinal(panel) {
+  let amt = donState[panel].amount;
+  if (panel === 'intl' && donState.intl.coverFee && amt > 0) {
+    // Reverse-calculate so masjid receives exactly `amt` after 2.9% + $0.30
+    amt = Math.round(((amt + 0.30) / (1 - 0.029)) * 100) / 100;
+  }
+  return amt;
+}
+
+// ── Update summary text + payment links ───────────────────
+function refreshDonUI(panel) {
+  const summaryEl = document.getElementById(`${panel}-summary`);
+  const prefix = panel === 'india' ? '₹' : '$';
+  const raw   = donState[panel].amount;
+  const final = calcFinal(panel);
+
+  if (raw <= 0) {
+    summaryEl.textContent = 'Select an amount above';
+    summaryEl.style.opacity = '0.5';
+  } else {
+    summaryEl.style.opacity = '1';
+    if (panel === 'intl' && donState.intl.coverFee && final !== raw) {
+      const fee = (final - raw).toFixed(2);
+      summaryEl.innerHTML =
+        `You pay: <strong style="color:var(--gold);font-size:1.15em;">${prefix}${final.toFixed(2)}</strong>` +
+        ` <span style="opacity:0.65;font-size:0.85em;">(${prefix}${raw.toFixed(2)} donation + ${prefix}${fee} fee cover)</span>`;
+    } else {
+      const display = panel === 'india' ? Math.round(raw).toLocaleString('en-IN') : raw.toFixed(2);
+      summaryEl.innerHTML = `Total: <strong style="color:var(--gold);font-size:1.15em;">${prefix}${display}</strong>`;
+    }
+  }
+
+  // Update UPI pay button + QR
+  if (panel === 'india') {
+    const upiBtn = document.getElementById('upi-pay-btn');
+    const qrImg  = document.getElementById('upi-qr-img');
+    const amtParam = raw > 0 ? `&am=${Math.round(raw)}` : '';
+    const upiLink  = `upi://pay?pa=${DON_UPI_ID}&pn=${DON_UPI_NAME}${amtParam}&cu=INR`;
+    upiBtn.href = upiLink;
+    upiBtn.textContent = raw > 0
+      ? `📲 Pay ₹${Math.round(raw).toLocaleString('en-IN')} via UPI`
+      : '📲 Pay via UPI';
+    // Update QR to include amount
+    const qrData = encodeURIComponent(upiLink);
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${qrData}`;
+  }
+
+  // Update PayPal + Stripe buttons
+  if (panel === 'intl') {
+    const ppBtn  = document.getElementById('paypal-btn');
+    const strBtn = document.getElementById('stripe-btn');
+    ppBtn.href = final > 0 ? `${DON_PAYPAL}/${final.toFixed(2)}` : DON_PAYPAL;
+    ppBtn.textContent  = final > 0 ? `🅿️ Donate $${final.toFixed(2)} via PayPal` : '🅿️ Donate via PayPal';
+    strBtn.textContent = final > 0 ? `💳 Donate $${final.toFixed(2)} via Card`   : '💳 Donate via Card';
+  }
+}
+
+// Legacy stub so any old onclick="selectAmount()" still works safely
 function selectAmount(btn) {
   document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  COPY UPI ID
+//  COPY PLUS CODE / UPI
 // ═══════════════════════════════════════════════════════════
 function copyPlusCode() {
   const code = 'M4C9+F7C, Lalmau';
